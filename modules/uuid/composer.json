@@ -1,0 +1,27 @@
+{
+	"name": "shadowhand/uuid",
+	"description": "Universally Unique Identifiers (RFC 4122) module for Kohana ",
+	"keywords": ["kohana", "uuid"],
+	"homepage": "https://github.com/shadowhand/uuid",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Woody Gilk",
+			"email": "woody.gilk@kohanaframework.org"
+		}
+	],
+	"support": {
+		"issues":   "https://github.com/shadowhand/uuid/issues",
+		"source":   "https://github.com/shadowhand/uuid"
+	},
+	"require": {
+		"php": ">=5.3.0",
+		"kohana/core": ">=3.3"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-3.3/master": "3.3.x-dev"
+		}
+	}
+
+}

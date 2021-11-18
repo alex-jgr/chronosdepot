@@ -1,0 +1,1 @@
+<?phpdefined('SYSPATH') or die('No direct script access.');return array(    'appId' => '',    'secret' => '',   // 'fileUpload' => NULL,   // 'trustForwarded' => NULL,   // 'allowSignedRequest' => NULL,   // 'sharedSession' => NULL);

@@ -1,0 +1,68 @@
+<div class="row" id="notifications-page">
+    <div class="col-xs-12">
+        <h3>
+            Notifications
+        </h3>
+    </div>
+    <div class="col-md-8">
+        <div id="notifications-container">
+            <ul id="home-notifications">
+                {{#notifications}}
+                <li class="{{status}}" data-id="{{id}}" id="notification-{{id}}">
+                    <span class="info pull-left">{{{info}}}</span>
+                    <span class="date pull-right">{{date}}</span>
+                    <span class="clearfix"></span>
+                </li>
+                {{/notifications}}
+            </ul>
+        </div>
+        <div class="panel-footer hidden-xs hidden-sm">
+            <div class="btn-group col-xs-12">
+                {{#pages}}
+                    <button type="button" class="btn btn-info col-xs-12 load-more" data-page="{{next}}">Load more</button>
+                {{/pages}}
+            </div>
+            <br />
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        {{#pages}}
+            <div class="btn-group col-xs-12">
+                <button type="button" class="btn btn-default col-xs-12 load-more" data-page="{{next}}">Load more</button>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <div class="btn-group col-xs-12">
+                <button type="button" class="btn btn-default col-xs-6 next-page prev" data-page="{{prev}}">Previous</button>
+                <button type="button" class="btn btn-default col-xs-6 next-page next" data-page="{{next}}">Next</button>
+            </div>
+        {{/pages}}
+        <div class="clearfix"></div>
+        <br />
+        <div class="col-xs-12">
+            <div class="input-group col-xs-12">
+                <label class="input-group-addon" for="per_page">Notificaitons per page: </label>
+                <select class="form-control" id="per_page">
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+        <div class="col-xs-12">
+            <div class="input-group">
+                <label class="input-group-addon date">From</label>
+                <input type="text" class="form-control date" id="start-date" />
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <div class="input-group">
+                <label class="input-group-addon date">To</label>
+                <input type="text" class="form-control date" id="end-date" />
+            </div>
+        </div>
+    </div>
+</div>

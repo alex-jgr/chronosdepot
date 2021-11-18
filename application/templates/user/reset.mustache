@@ -1,0 +1,45 @@
+<div class="container">
+    <br />
+    <br />
+    {{#message}}
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <p>{{message}}</p>
+            <a href="/user/login">Go back to login</a>
+        </div>
+    {{/message}}
+    {{^expired}}
+        <form method="post" action="/user/new_password" class="form-horizontal">
+            <input type="hidden" name="token" value="{{token}}" />
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-1">
+                    <div class="form-group">
+                        <label class="control-label col-sm-6" for="password">New password</label>
+                        <div class="col-xs-12 col-sm-6">
+                            <input class="form-control" name="password" type="password" id="password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-6" for="confirm-password">Confirm new password</label>
+                        <div class="col-xs-12 col-sm-6">
+                            <input class="form-control" name="confirm_password" type="password" id="confirm-password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-6">
+                            <button class="btn btn-default">Save new password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {{/expired}}
+    {{#expired}}
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <p>This link has expired! You can request a new password reset by using the "Forgot password" button from the login page</p>
+            <a href="/user/login">Go back to login</a>
+        </div>
+    {{/expired}}
+</div>

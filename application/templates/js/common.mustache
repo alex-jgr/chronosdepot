@@ -1,0 +1,143 @@
+<div id="messages-container">
+</div>
+<script type="text/mustache-template" id="messages-template">
+    {{#success}}
+        <div class="modal fade" id="success-message" tabindex="-1" role="dialog" aria-labelledby="successModal" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            Success!
+                        </div>
+                        <div class="panel-body">
+                            {{{message}}}
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-success form-control" type="button" data-toggle="modal" data-target="#success-message">Cool!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="hidden message-switch" type="button" data-toggle="modal" data-target="#success-message"></button>
+    {{/success}}
+
+    {{#error}}
+        <div class="modal fade" id="error-message" tabindex="-1" role="dialog" aria-labelledby="errorModal" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        Error!
+                    </div>
+                    <div class="panel-body">
+                        {{{message}}}
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-danger form-control" type="button" data-toggle="modal" data-target="#error-message">Oh! ...</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="hidden message-switch" type="button" data-toggle="modal" data-target="#error-message"></button>
+    {{/error}}
+
+    {{#warning}}
+        <div class="modal fade" id="warning-message" tabindex="-1" role="dialog" aria-labelledby="warningModal" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        Warning!
+                    </div>
+                    <div class="panel-body">
+                        {{{message}}}
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-warning form-control" type="button" data-toggle="modal" data-target="#warning-message">Whatever...</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="hidden message-switch" type="button" data-toggle="modal" data-target="#warning-message"></button>
+    {{/warning}}
+</script>
+<div class="modal fade" id="is-task-complete" tabindex="-1" role="dialog" aria-labelledby="TaskStopModal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm" id="task-stop-options">
+    </div>
+</div>
+<script type="text/mustache-template" id="worklog-edit-template">
+    {{#worklog}}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>Task complete?</strong>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <label class="input-group-addon fixed-width-label">Worklog time</label>
+                <input type="text" id="worklog-time" class="form-control centered" value="{{current_time}}" />
+            </div>
+            <br />
+            <div class="input-group">
+                <label class="input-group-addon fixed-width-label">Total used time</label>
+                <input type="text" value="{{time}}" id="duration-edit" disabled name="duration" class="form-control centered" />
+            </div>
+            <br />
+            <div class="input-group">
+                <label class="input-group-addon fixed-width-label">Remaining time</label>
+                <input id="remaining-time" type="text" disabled name="note" class="form-control centered" value="{{remaining_time}}" />
+            </div>
+            <br />
+            <div class="input-group">
+                <label class="input-group-addon fixed-width-label">Progress</label>
+                <input type="text" id="progress-edit" name="progress" class="form-control centered" value="{{progress}}" />
+                <label class="input-group-addon">%</label>
+            </div>
+            <br />
+            <div class="input-group">
+                <label class="input-group-addon">Comment</label>
+                <input type="text" id="note-edit" name="note" class="form-control" />
+            </div>
+            <input type="hidden" id="worklog-edit" name="worklog_id" value="{{id}}" />
+            <input type="hidden" id="worklog-time-edit" name="worklog_time" value="{{duration}}" />
+            <input type="hidden" id="time-edit" name="duration" value="{{#task}}{{work}}{{/task}}" />
+            <input type="hidden" id="limit-edit" name="limit" value="{{limit}}" />
+            <input type="hidden" id="reference-task-time" value="{{#task}}{{work}}{{/task}}" />
+            <input type="hidden" id="reference-worklog-time" value="{{original_duration}}" />
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                    <button class="btn btn-info col-md-12 col-xs-12 stop-worklog" data-status="ongoing"><i class="glyphicon glyphicon-pause"></i></button>
+                    <div class="caption">
+                        <center>Only pause</center>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <div class="raw">
+                        <button class="btn btn-success col-md-12 col-xs-12 stop-worklog" data-status="finished"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                        <div class="caption">
+                           <center>Finished</center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <input type="hidden" id="change-status-id"/>
+        </div>
+    </div>
+    {{/worklog}}
+</script>
+<script type="text/mustache-template" id="finished-task-control">
+    <button class="btn btn-default col-xs-12 reenable-task" data-id="{{id}}" data-limit="{{estimate}}" data-elapsed="{{work}}" data-countdown="true" data-has_children="{{has_children}}" type="button">
+        Re enable task
+    </button>
+    <div class="clearfix"></div>
+</script>
+<script type="text/mustache-template" id="ongoning-task-control">
+    {{^has_children}}
+        <div class="task-timer" id="task-timer-{{id}}" data-limit="{{estimate}}" data-elapsed="{{work}}" data-active="" data-countdown="true" data-id="{{id}}"></div>
+    {{/has_children}}
+    {{#has_children}}
+        <a class="btn btn-default col-xs-12" href="/project/work/{{project_id}}/{{id}}">Go to sub tasks</a>
+        <div class="clearfix"></div>
+    {{/has_children}}
+</script>

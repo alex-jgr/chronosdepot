@@ -1,0 +1,261 @@
+<div class="col-xs-12">
+    <input type="hidden" id="project-id" value="{{project_id}}"/>
+    <form class="form-horizontal" id="edit-project" action="/project/save/simple/{{id}}" method="post" enctype="multipart/form-data">
+
+        <h3>
+                {{#id}}Edit project: {{name}}{{/id}}{{^id}}Create project:{{/id}}
+        </h3><br />
+            
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="name"><i class="glyphicon glyphicon-eye-open"></i> Project name</label>
+                                    <input class="form-control" id="name" type="text" name="name" value="{{name}}"/>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="currency_id">Currency</label>
+                                    <select class="form-control" name="currency_id" id="currency_id" data-selected_value="{{currency_id}}" data-default_value="978">
+                                        {{#currencies}}
+                                            <option value="{{id}}">{{code}}</option>
+                                        {{/currencies}}
+                                    </select>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="budget">Hour price agreement</label>
+                                    <input class="form-control" id="project-wage" type="text" name="project-wage" value="{{wage}}"/>
+                                    <span class="wage-currency input-group-addon"></span>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="budget"><i class="glyphicon glyphicon-eye-open"></i> Budget</label>
+                                    <input class="form-control" id="budget" type="text" name="budget" value="{{budget}}"/>                                    
+                                </div>
+                                <br />
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="input-group">
+                                    {{#customer}}
+                                        <span class="input-group-addon">Customer</span>
+                                        <span class="form-control">
+                                            {{#contact_id}}{{email}}{{/contact_id}}
+                                            {{^contact_id}}{{firstname}}{{#lastname}} {{lastname}}, {{/lastname}}{{email}}{{/contact_id}}
+                                        </span>
+                                    {{/customer}}
+                                    {{^customer}}
+                                        <label class="input-group-addon" for="main-contact">Customer</label>
+                                        <input class="form-control" id="main-contact" type="text" name="main_contact" placeholder="Email" />
+                                    {{/customer}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="description"><i class="glyphicon glyphicon-eye-open"></i> Description</label>
+                            <textarea class="form-control" rows="18" id="description" name="description">{{description}}</textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-12 hourly-wages">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Team members hourly wages for {{name}}{{^name}}the new project{{/name}}
+                                    </div>
+                                    <table class="table table-hover">
+                                        {{#users}}
+                                            <tr>
+                                                <td><img class="thumbnail" style="margin-bottom: 0px;" src="{{#image}}{{image}}{{/image}}{{^image}}/public/img/chronosuserthumb.jpg{{/image}}" alt></td>
+                                                <td>
+                                                    {{username}}<br />
+                                                    <div class="input-group">
+                                                        <input class="form-control user-wage" type="text" name="wage[{{user_id}}]" value="{{wage}}"/>
+                                                        <span class="wage-currency input-group-addon"></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {{/users}}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {{#project_id}}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <h4>Project contacts</h4>
+                                <div id="project-contacts">
+                                    {{#contacts}}
+                                    <div class="row" id="contact-{{contact_id}}">
+                                        <div class="col-xs-12">
+                                            <div class="input-group btn-group">
+                                                <a href="/user/profile/{{user_id}}" class="form-control">
+                                                    {{#firstname}}{{firstname}} {{lastname}}{{/firstname}}
+                                                    {{^firstname}}{{user_email}}{{/firstname}}
+                                                </a>
+                                                <button class="btn btn-default cancel" data-id="{{contact_id}}" data-user="{{#firstname}}{{firstname}} {{lastname}}{{/firstname}}{{^firstname}}{{user_email}}{{/firstname}}" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <br />
+                                    </div>
+                                    {{/contacts}}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <h4>Project contact invitations</h4>
+                                <div id="invite-form">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="input-group btn-group">
+                                                <input type="text" id="invite-contact-email" placeholder="Email" class="form-control"/>
+                                                <button class="btn btn-primary form-control" id="invite-contact-button" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div id="project-invites">
+                                    {{#invites}}
+                                        <div class="row" id="invite-{{contact_id}}">
+                                            <div class="col-xs-12">
+                                                <div class="input-group btn-group">
+                                                    <a href="/user/profile/{{user_id}}" class="form-control">
+                                                        {{#user_email}}{{user_email}}{{/user_email}}
+                                                        {{^user_email}}{{contact_email}}{{/user_email}}
+                                                    </a>
+                                                    <button class="btn btn-default cancel" data-id="{{contact_id}}" data-user="{{#user_email}}{{user_email}}{{/user_email}}{{^user_email}}{{contact_email}}{{/user_email}}" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br />
+                                        </div>
+                                    {{/invites}}
+                                </div>
+                            </div>
+                        </div>
+                        {{/project_id}}
+                    </div>
+                    <div class="col-md-4" id="team-requests-container">
+                        <h4>
+                                Find users
+                        </h4>
+                        <div id="simple-tema-users">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="find-user"><i class="glyphicon glyphicon-search"></i></label>
+                                        <input type="text" class="form-control" id="find-user" placeholder="Email..." />
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="col-xs-12">
+                                    <div class="input-group col-xs-12">
+                                        <a id="selected-user" target="_blank" class="form-control"></a>
+                                        <input type="hidden" id="invite-user-id" />
+                                        <input type="hidden" id="invite-email" />
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+
+                            </div>
+                            </div>
+                        <button class="btn btn-info btn-xs form-control" type="button" id="add-user-to-team">Send invitation</button>
+                        <br />
+                        <br />
+                        <h4>
+                            Membership requests
+                        </h4>
+                        <input type="hidden" id="team-id" value="{{team_id}}"/>
+                        <ul id="team-requests" class="form-horizontal team-requests">
+                            {{#join_requests}}
+                                <li id="team-request-{{id}}">
+                                    <div class="btn-group input-group">
+                                        <a class="input-group-addon info" href="/user/profile/{{user_id}}">{{username}}</a>
+                                        <button type="button" class="btn btn-success action" data-request="{{id}}"><i class="glyphicon glyphicon-ok-circle"></i></a>
+                                        <button type="button" class="btn btn-danger cancel" data-request="{{id}}"><i class="glyphicon glyphicon-remove-circle"></i></a>
+                                    </div>
+                                </li>
+                            {{/join_requests}}
+                            {{^join_requests}}
+                                There are no pending join requests...
+                            {{/join_requests}}
+                        </ul>
+                        <br />
+                        <h4>
+                            Team invitations
+                        </h4>
+                        <ul id="team-invites" class="form-horizontal team-requests">
+                            {{#invite_requests}}
+                                <li id="team-request-{{id}}">
+                                    <div class="btn-group input-group">
+                                        <a class="input-group-addon info pending" href="/user/profile/{{user_id}}">{{username}}</a>
+                                        <button class="btn btn-info disabled" data-request="{{id}}"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                        <button type="button" class="btn btn-danger cancel" data-request="{{id}}"><i class="glyphicon glyphicon-remove-circle"></i></a>
+                                    </div>
+                                </li>
+                            {{/invite_requests}}
+                        </ul>
+                    </div>
+                </div>
+            
+            
+                <br />
+                <hr />
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <button class="btn btn-success col-md-12 col-xs-12" type="submit">Save</button>
+                        <div class="clearfix"></div>
+                        <br />
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a class="btn btn-warning col-md-12 col-xs-12" href="/user/home/owned-projects">Cancel</a>
+                        <div class="clearfix"></div>
+                        <br />
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a class="btn btn-danger col-md-12 col-xs-12" href="/project/delete/{{id}}">Delete...</a>
+                        <div class="clearfix"></div>
+                        <br />
+                    </div>
+                </div>
+            
+
+    </form>
+</div>
+<div id="modals-container">
+    <div class="modal fade exclude-contact-modal"  tabindex="-1" role="dialog" aria-labelledby="ExcludeContact" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        Are you sure that you want to exlude <span id="exclude-project-contact-name"></span>
+                        <input type="hidden" id="exclude-project-contact-id">
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button class="btn btn-success" type="button" id="confirm-exclude-project-contact" data-toggle="modal">Yes</button>
+                            </div>
+                            <div class="col-xs-6 {{^users}}hidden{{/users}}">
+                                <button class="btn btn-warning" type="button" data-toggle="modal" data-target=".exclude-contact-modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

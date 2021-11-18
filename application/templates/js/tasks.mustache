@@ -1,0 +1,79 @@
+<script type="text/mustache-template" id="task-row">
+        {{#tasks}}
+            <div class="task-item {{#parent_id}}child-of-{{parent_id}}{{/parent_id}} {{status}}" id="task-{{id}}" data-id="{{id}}" data-status="{{status}}" data-progress="{{progress}}" data-parent="{{parent_id}}">
+                <span class="pull-left col-sm-6 col-xs-12">
+                    <span class="level level-{{level}}"></span>
+                    <i class="glyphicon glyphicon-tasks"></i>
+                    <span class="collapse-control">
+                        {{#has_children}}
+                            <button class="btn btn-default pull-left expand-collapse {{#is_open}}open{{/is_open}}" data-id="{{id}}" data-project_id="{{project_id}}" data-parent="{{parent_id}}">
+                                <i class="glyphicon glyphicon-chevron-{{#is_open}}down{{/is_open}}{{^is_open}}right{{/is_open}} visible"></i>
+                                <i class="glyphicon hidden">!</i>
+                                <i class="loading"></i>
+                            </button>
+                        {{/has_children}}
+                    </span>
+                    {{goal}} (<span id="task-progress-{{id}}">{{progress}}</span>%)
+                </span>
+
+                <span class="col-sm-4 col-xs-12">
+                    <span class="time-status col-sm-6 col-xs-12">
+                        <span class="level level-1 visible-xs"></span>
+                        <span class="level level-{{level}} visible-xs"></span>
+                        {{duration}}/ {{estimate}}
+                    </span>
+                    <span class="col-sm-6 col-xs-12">
+                        <span class="level level-1 visible-xs"></span>
+                        <span class="level level-{{level}} visible-xs"></span>
+                            {{spent}}/ {{budget}}
+                        </span>
+                </span>
+                <span class="pull-right col-sm-2 col-xs-12 buttons-group">
+                    <span class="level level-1 visible-xs"></span>
+                    <span class="level level-{{level}} visible-xs"></span>
+                    <button class="btn btn-default add-subtask" 
+                            data-id="{{id}}" 
+                            data-task_type_id="{{task_type_id}}" 
+                            data-goal="{{goal}}" 
+                            data-estimate_hours="{{estimate_hours}}" 
+                            data-estimate_minutes="{{estimate_minutes}}" 
+                            data-budget="{{budget}}"
+                            data-description="{{description}}"
+                            data-status="{{status}}"
+                            data-project_id="{{project_id}}"
+                            data-parent_id="{{parent_id}}"
+                            type="button" data-toggle="modal" data-target=".create-task" title="Add a subtask">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                    <button class="btn btn-default edit-task" 
+                            data-id="{{id}}" 
+                            data-task_type_id="{{task_type_id}}" 
+                            data-goal="{{goal}}" 
+                            data-estimate_hours="{{estimate_hours}}" 
+                            data-estimate_minutes="{{estimate_minutes}}" 
+                            data-budget="{{budget}}"
+                            data-description="{{description}}"
+                            data-status="{{status}}"
+                            data-project_id="{{project_id}}"
+                            data-parent_id="{{parent_id}}"
+                            type="button" data-toggle="modal" data-target=".create-task" title="Add a subtask">
+                        <i class="glyphicon glyphicon-wrench"></i>
+                    </button>
+                    <button class="btn btn-default change-status" data-id="{{id}}" type="button" data-toggle="modal" data-target=".change-status-modal" ><i class="glyphicon glyphicon-{{icon}}"></i></button>
+                    <button class="btn btn-default users" id="users-{{id}}" data-id="{{id}}" type="button" data-toggle="modal" data-target=".manage-users" data-goal="{{goal}}"><i class="glyphicon glyphicon-user"></i></button>
+                    <button class="btn btn-default delete-task-button" data-id="{{id}}" type="button"><i class="glyphicon glyphicon-trash"></i></button>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        {{/tasks}}
+</script>
+<script type="text/mustache-template" id="select-team-template">
+    {{#teams}}
+        <option id="{{id}}">{{name}}</option>
+    {{/teams}}
+</script>
+<script type="text/mustache-template" id="select-users-template">
+    {{#users}}
+        <div class="lbjs-item item-{{id}} team-{{team_id}} available" data-value="{{id}}">{{username}}</div>
+    {{/users}}
+</script>

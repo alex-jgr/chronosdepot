@@ -1,0 +1,28 @@
+a{
+    color: #526665
+}
+body{
+    background: url(/public/img/bkgr.png) no-repeat right;
+    background-attachment: fixed;
+}
+#home-panels{
+    margin-top: 15px;
+}
+#home-panel-heading{
+    background-color: #ffffff;
+}
+#home-panel-heading li{
+    /*border: 1px solid #aaaaaa;*/
+}
+#main-panel{
+    /*border: 15px #ddd solid;*/
+    padding: 0;
+    margin: 0 -15px;
+    opacity: .95;
+}
+tfoot tr th{
+    color: #1B241B;
+}
+.nav-tabs>li>a, .nav-tabs.nav-justified>li>a{
+    border-radius: 0;
+}

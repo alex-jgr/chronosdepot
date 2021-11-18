@@ -1,0 +1,52 @@
+<div id="invoice-template-editor">
+    <div class="col-md-8">
+        <h3 id="action-heading">{{#template}}Edit template: {{name}}{{/template}}{{^template}}Create invoice template{{/template}}</h3>
+        <form method="post">
+            {{#template}}
+                {{>edit-template}}
+            {{/template}}
+            {{^template}}
+                {{>edit-template}}
+            {{/template}}
+            <br />
+            <div class="row">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary form-control" type="submit" name="save">Save</button>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn btn-danger form-control" href="/invoice/delete_template/{{id}}">Delete</a>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn btn-default form-control" href="/invoice">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h3>Available templates</h3>
+        <div class="panel panel-default">
+            <table class="table panel-body table-hover">
+                <tbody>
+                {{#templates}}
+                <tr>
+                    <td>
+                        {{name}}
+                        <input type="hidden" value="{{json}}" id="template-{{id}}" />
+                    </td>
+                    <td>
+                        <a class="edit-template" data-id="{{id}}">Edit</a> | <a class="clone-template" data-id="{{id}}">Clone</a>
+                    </td>
+                </tr>
+                {{/templates}}
+                {{^templates}}
+                    <tr>
+                        <td>
+                            You did not create any templates yet...
+                        </td>
+                    </tr>
+                {{/templates}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

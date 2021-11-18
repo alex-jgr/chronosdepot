@@ -1,0 +1,135 @@
+<div class="clearfix"></div>
+<br /><br />
+<div class="container">
+    <div class="row space-top">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    LOGIN
+                </div>
+                <div class="panel-body">
+                    <form action="/user/login" id="login-form" name="login-form" class="form-horizontal" method="post">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                    <input name="email" type="text" class="form-control" id="login-username" placeholder="Email" />
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input name="password" type="password" class="form-control" id="login-password" placeholder="Password" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-play"></i></span>
+                                    <button class="form-control btn btn-default" type="submit">Log in</button>
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon fb"><b>&nbsp;f&nbsp;</b></span>
+                                    <a class="form-control btn btn-info fb" href="{{facebook_login_url}}">Log in with facebook</a>
+                                </div> 
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                    <button type="button" class="form-control btn btn-default" data-toggle="collapse" data-target="#reset-password">Forgot password</button>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </form>
+                    <div id="reset-password" class="form-horizontal collapse">
+                        <div class="clearfix"></div>
+                        <div class="col-md-12 input-group">
+                            <span class="input-group-addon">Email <i class="glyphicon glyphicon-envelope"></i></span>
+                            <input type="text" class="form-control" id="email-reset-password" />                    
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-send"></i></span>
+                            <button class="form-control btn btn-default" id="reset-password-button" data-toggle="collapse" data-target="#reset-password">Reset password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Sign up
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" id="signup-form" method="post" name="signup-form" action="/user/register">
+                            <div class="form-group">
+                                <label class="control-label" for="email" id="email-label">
+                                    Email *
+                                </label><label for="email" class="error" style="display: none;"></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                    <input name="email" id="email" type="email" class="form-control" placeholder="Email" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="firstname">
+                                    First name
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input name="firstname" id="firstname" type="text" class="form-control" placeholder="First name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="lastname">
+                                    Last name
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Last name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="phone">
+                                    Phone no.:
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                    <input name="phone" id="phone" type="text" class="form-control" placeholder="Phone number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">
+                                    Password *
+                                </label>
+                                <label for="password" class="error" style="display: none;"></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input name="password" id="password" type="password" class="form-control" placeholder="Password" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="confirm_password">
+                                    Confirm password *
+                                </label>
+                                <span><br /><label for="confirm_password" class="error" style="display: none;"></label></span>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input name ="confirm_password" id="confirm_password" type="password" class="form-control" placeholder="Confirm password" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                                    <button class="form-control btn btn-default">Continue</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

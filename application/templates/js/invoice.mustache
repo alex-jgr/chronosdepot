@@ -1,0 +1,62 @@
+<script type="text/mustache-template" id="worklogs-tasks-table-template">
+    {{#worklogs}}
+        <tr id="worklog-{{id}}">
+            <td class="task-goal">
+                <span class="level level-{{level}}"></span>
+                <a href="/project/work/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_goal}}</a>
+            </td>
+            <td class="duration">
+                <span id="duration-{{id}}" class="duration">{{human_duration}}</span>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+                <span id="note-{{id}}" class="note">{{note}}</span>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>
+<script type="text/mustache-template" id="tasks-sum-table-template">
+    {{#worklogs}}
+        <tr id="worklog-{{id}}" class="user-{{user_id}} team-{{team_id}} task-type-{{task_type_id}}">
+            <td>
+            </td>
+            <td>
+                <a href="/project/work/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_goal}}</a>
+            </td>
+            <td class="duration">
+                <span id="readonly-duration-{{id}}" class="readonly-duration">{{human_duration}}</span>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+                <span id="readonly-note-{{id}}" class="readonly-note">{{note}}</span>
+            </td>
+            <td>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>
+<script type="text/mustache-template" id="task-types-sum-table-template">
+    {{#worklogs}}
+        <tr id="task-type-{{task_type_id}}" class="task-type-{{task_type_id}}">
+            <td>
+            </td>
+            <td>
+                <a href="/project/work/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_goal}}</a>
+            </td>
+            <td class="duration">
+                <span id="readonly-duration-{{id}}" class="readonly-duration">{{human_duration}}</span>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+            </td>
+            <td>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>

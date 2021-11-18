@@ -1,0 +1,126 @@
+<script type="text/mustache-template" id="worklogs-contracted-table-template">
+    {{#worklogs}}
+        <tr id="worklog-{{id}}">
+            <td class="worklog-task-goal">
+                <a href="/project/work/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_goal}}</a>
+            </td>
+            <td class="duration">
+                <span id="readonly-duration-{{id}}" class="readonly-duration">{{human_duration}}</span>
+                <input id="edit-duration-{{id}}" data-id="{{id}}" class="form-control edit-duration time-input" type="text" value="{{human_duration}}"/>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+                <span id="readonly-note-{{id}}" class="readonly-note">{{note}}</span>
+                <input id="edit-note-{{id}}" data-id="{{id}}" class="form-control edit-note" type="text" value="{{note}}"/>
+            </td>
+            <td>
+                <div class="col-xs-12">
+                    <div class="btn-group pull-right">
+                        <button class="update-worklog btn btn-default" id="edit-control-{{id}}" data-state="closed" data-id="{{id}}"><i id="edit-control-icon-{{id}}" class="glyphicon glyphicon-pencil"></i></button>
+                        <button class="cancel-worklog btn btn-default" id="cancel-control-{{id}}" data-id="{{id}}"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                        <button class="delete-worklog btn btn-default" id="delete-worklog-{{id}}" data-id="{{id}}" data-started="{{human_start}}" data-goal="{{task_goal}}"><i class="glyphicon glyphicon-trash"></i></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>
+<script type="text/mustache-template" id="worklogs-owned-table-template">
+    {{#worklogs}}
+        <tr id="worklog-{{id}}" class="user-{{user_id}} task-type-{{task_type_id}}">
+            <td class="worklog-user-name">
+                <a href="/user/profile/{{user_id}}">{{username}}</a>
+            </td>
+            <td>
+                <a href="/project/work/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_id}}# {{task_goal}}</a>
+            </td>
+            <td class="duration">
+                <span id="readonly-duration-{{id}}" class="readonly-duration">{{human_duration}}</span>
+                <input id="edit-duration-{{id}}" data-id="{{id}}" class="form-control edit-duration time-input" type="text" value="{{human_duration}}"/>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+                <span id="readonly-note-{{id}}" class="readonly-note">{{note}}</span>
+                <input id="edit-note-{{id}}" data-id="{{id}}" class="form-control edit-note" type="text" value="{{note}}"/>
+            </td>
+            <td>
+                <div class="col-xs-12">
+                    <div class="btn-group pull-right">
+                        <button class="update-worklog btn btn-default" id="edit-control-{{id}}" data-state="closed" data-id="{{id}}"><i id="edit-control-icon-{{id}}" class="glyphicon glyphicon-pencil"></i></button>
+                        <button class="cancel-worklog btn btn-default" id="cancel-control-{{id}}" data-id="{{id}}"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                        <button class="delete-worklog btn btn-default" id="delete-worklog-{{id}}" data-id="{{id}}" data-started="{{human_start}}" data-goal="{{task_goal}}"><i class="glyphicon glyphicon-trash"></i></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>
+<script type="text/mustache-template" id="worklogs-supervised-table-template">
+    {{#worklogs}}
+        <tr id="worklog-{{id}}" class="user-{{user_id}} team-{{team_id}} task-type-{{task_type_id}}">
+            <td class="worklog-task-goal">
+                <a href="/project/supervise/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_goal}}</a>
+            </td>
+            <td>
+                {{task_type}}
+            </td>
+            <td class="duration">
+                <span id="readonly-duration-{{id}}" class="readonly-duration">{{human_duration}}</span>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+                <span id="readonly-note-{{id}}" class="readonly-note">{{username}}: {{#note}}{{note}}{{/note}}</span>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>
+
+<script type="text/mustache-template" id="tasks-sum-table-template">
+    {{#worklogs}}
+        <tr id="worklog-{{id}}" class="user-{{user_id}} team-{{team_id}} task-type-{{task_type_id}}">
+            <td>
+            </td>
+            <td>
+                <a href="/project/work/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_goal}}</a>
+            </td>
+            <td class="duration">
+                <span id="readonly-duration-{{id}}" class="readonly-duration">{{human_duration}}</span>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+                <span id="readonly-note-{{id}}" class="readonly-note">{{note}}</span>
+            </td>
+            <td>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>
+<script type="text/mustache-template" id="task-types-sum-table-template">
+    {{#worklogs}}
+        <tr id="task-type-{{task_type_id}}" class="task-type-{{task_type_id}}">
+            <td>
+            </td>
+            <td>
+                <a href="/project/work/{{project_id}}{{#parent_id}}/{{parent_id}}{{/parent_id}}">{{^project}}{{project_name}}: #{{/project}} {{task_goal}}</a>
+            </td>
+            <td class="duration">
+                <span id="readonly-duration-{{id}}" class="readonly-duration">{{human_duration}}</span>
+            </td>
+            <td class="start_time" data-unix="{{start_time}}" data-id="{{id}}">
+                {{human_start}}
+            </td>
+            <td class="note">
+            </td>
+            <td>
+            </td>
+        </tr>
+    {{/worklogs}}
+</script>

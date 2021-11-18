@@ -1,0 +1,255 @@
+<form method="post" id="user-settings-form" autocomplete="off">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-12 col-sm-5">
+                    <div class="input-group">
+                        <label class="input-group-addon" for="username">Username: </label>
+                        <input type="text" value="{{username}}" id="username" name="username" class="form-control"/>
+                    </div>
+                    <div class="visible-xs">
+                        <br />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-addon" for="headline">Headline:</label>
+                        <input type="text" value="{{headline}}" id="headline" name="headline" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <center>
+                            <div class="profile-image" id="image-preview">
+                                {{#image}}
+                                    <img class="thumbnail" src="{{public_path}}" alt />
+                                {{/image}}
+                            </div>
+                        </center>
+                        <input type="hidden" name="image_id" value="{{image_id}}" id="image_id"/>
+                        <div class="input-group">
+                            <label class="input-group-addon">Image</label>
+                            <button class="btn btn-info form-control divert" type="button" data-divert="#image" data-event="click">Browse ... </button>
+                            <label class="input-group-addon" id="upload-status"></label>
+                            <button class="btn btn-default form-control disabled" type="button" id="start-upload"><i class="glyphicon glyphicon-upload"></i> Upload</button>
+                        </div>
+                        <div id="image-file"></div>
+                        <input class="form-control hidden" type="file" name="image" id="image"/>
+                        <div class="clearfix"></div>
+                        <br />
+                        <a href="/user/profile/{{id}}">View my profile</a>
+                    </div>
+                </div>
+                <div class="panel panel-default" id="ux-selection">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <span class="col-xs-10">Desired management experience</span>
+                            <span class="col-xs-2">
+                                <button class="btn btn-info pull-right" type="button" data-toggle="modal" data-target="#ux-info-modal">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="simple">Select usage</label>
+                            <select class="form-control" name="simple" id="simple" data-selected_value="{{simple}}" data-default_value="0">
+                                <option value="0">Full features</option>
+                                <option value="1">Simplified usage</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        My teams
+                    </div>
+                    <div class="panel-body">
+                            <ul class="list-unstyled listbox-teams">
+                                {{#teams}}
+                                    <li class="item-{{id}}" data-value="{{id}}">
+                                        <span class="pull-left">
+                                            <span class="team">
+                                                <img class="thumbnail" src="{{image}}"/>
+                                                <a href="/team/profile/{{id}}">{{name}}</a>
+                                            </span>
+                                        </span>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                {{/teams}}
+                            </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Design
+                    </div>
+                    <div class="panel-body">
+                        <div class="input-group col-xs-12">
+                            <label class="input-group-addon" for="background">Background color</label>
+                            <input type="text" class="form-control" name="background" value="{{background}}" id="background" style="background: {{background}}"/>
+                        </div>
+                        <br />
+                        <div class="input-group col-xs-12">
+                            <label class="input-group-addon" for="theme">Theme</label>
+                            <select id="theme" name="theme" class="form-control" data-selected_value="{{theme}}" >
+                                <option value="none">Default</option>
+                                <option value="hack">Hacker</option>
+                                <option value="default">Bootstrap</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8 col-xs-12" id="right-panel">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="firstname">First name</label>
+                            <input type="text" name="firstname" id="firstname" class="form-control" value="{{firstname}}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="lastname">Last name</label>
+                            <input type="text" name="lastname" id="lastname" class="form-control" value="{{lastname}}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" value="{{email}}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{phone}}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="location">Location</label>
+                            <input type="text" name="location" id="location" class="form-control" value="{{location}}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="wage">Owned projects default wage</label>
+                                    <input type="text" name="wage" id="wage" value="{{wage}}" class="form-control wage"/>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="currency_id">Currency</label>
+                                    <select class="form-control" name="currency_id" id="currency_id" data-selected_value="{{currency_id}}" data-default_value="978">
+                                        {{#currencies}}
+                                            <option value="{{id}}">{{code}}</option>
+                                        {{/currencies}}
+                                    </select>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-group-addon" for="date-format">Preferred date format: </label>
+                            <select class="form-control" name="date_format" id="date-format" data-default_value="YYYY-MM-DD" data-selected_value="{{date_format}}">
+                                <option value="YYYY-MM-DD" data-format="YYYY-MM-DD"></option>
+                                <option value="Do MMM YYYY" data-format="Do MMM YYYY"></option>
+                                <option value="DD/MM - YYYY" data-format="DD/MM - YYYY"></option>
+                                <option value="MMM Do YYYY" data-format="MMM Do YYYY"></option>
+                                <option value="MM/DD/YYYY" data-format="MM/DD/YYYY"></option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="description">About me</label>
+                            <textarea name="description" id="description" class="form-control" rows="10">{{description}}</textarea>
+                        </div>
+                        {{^fb_id}}
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="input-group">
+                                <label class="input-group-addon password" for="old_password">Old password</label>
+                                <input type="password" name="old_password" id="old_password" class="form-control"/>
+                            </div>
+                        {{/fb_id}}
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon password" for="old_password">New password</label>
+                            <input type="password" name="password" id="password" class="form-control"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon password" for="old_password">Confirm password</label>
+                            <input type="password" name="re_password" id="re_password" class="form-control"/>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-success col-xs-12">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</form>
+<div id="modals-container">
+    <div class="modal fade" id="ux-info-modal" tabindex="-1" role="dialog" aria-labelledby="uxInfoModal" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-info-sign"></i> Management experience.
+                </div>
+                <div class="panel-body">
+                   <div class="col-xs-12">
+                        <h4>Full features</h4>
+                        <p>Full features means full control over all the aspects of your projects and teams.</p>
+                        <p>You will be able to create an unlimited number of teams and edit them. You will have to manage each team member's membership and tasks allocation.</p>
+                        <p>When creating and editing a project you will be able to select which teams to assign to that project.</p>
+                        <p>Flow: </p>
+                        <p>Create a team, invite users to your team by using the search by email option. They will receive invitations and accept or reject them.</p>
+                        <p>Create a project and add the created team to that project. All the users who accept your team invitations will be assigned to the project and will be available for you to allocate tasks to them on that project.</p>
+                        <br />
+                   </div>
+                    <hr />
+                    <div class="col-xs-12">
+                        <h4>Simplified experience</h4>
+                        <p>Select this if you work alone or if you do not need more than one team.</p>
+                        <p>Selecting the simplified usage will hide some of the full features functionality. The difference is currently visible only on the "Edit project" functionality and "Teams leadership", but I am working on simplifying the interface more.</p>
+                        <p>When this option is chosen, a default team will be created with the name "{{username}}'s team" if it does not exist already. </p>
+                        <p>{{username}}'s team will be automatically assigned to all your projects and all its users assigned to all the projects tasks as you add users to the team or tasks to the projects. </p>
+                        <p>You will not have an option for teams management in menu for as long as this setting is enabled. You will add users to your default team from the "Edit project".</p>
+                        <br />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-info form-control" type="button" data-toggle="modal" data-target="#ux-info-modal">Acknowledged</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

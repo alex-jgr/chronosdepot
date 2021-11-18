@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-xs-12">
+        <h1>CHRONOS DEPOT</h1>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>Developed and maintained by: Grigore Alexandru Jucan</p>
+                        <p>
+                            Contact: <br/>
+                            Str. Iza, Nr. 25
+                            Bl. S1, Sc. A, Ap. 18,<br />
+                            410458 Oradea,<br />
+                            Romania<br />
+                            Email: <a href="mailto:jgr.alex@live.com">jgr.alex@live.com</a><br />
+                            Phone: <a href="tel:+40 734 179 691">+40 734 179 691</a>
+                            <br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 hidden-xs">
+                <div class="panel panel-default branding">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                <center>
+                                    <a class="image_container" href="http://jalex.eu/"><img width="160" src="/public/img/me2.jpg" alt /></a>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-8">
+                                <center style="margin-top: 50px;">
+                                    <a class="brand" href="http://jalex.eu/">
+                                        <span style="color: #CC0000;">new</span> <span>JAlex(</span><span class="globe"><img class="globe_image" width="45" src="/public/img/globe-4.gif"></span><span>);</span>
+                                    </a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">    
+    <div class="col-xs-12">
+        {{^hack_map}}
+            <iframe id="contact_map" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10869.159676367324!2d21.916574!3d47.073778!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4746487c6ccd20d9%3A0x26563e24e54a68e9!2sStrada+Iza+25%2C+Oradea%2C+Romania!5e0!3m2!1sen!2sro!4v1431526289728" frameborder="0" style="border:0"></iframe>
+        {{/hack_map}}
+        {{#hack_map}}
+    <script type="text/javascript" src="/public/js/polymaps/lib/protovis/protodata.js"></script>
+    <script type="text/javascript" src="/public/js/polymaps/polymaps.js"></script>
+        <div id="contact_map"></div>
+        <script type="text/javascript" src="/public/js/polymaps/examples/streets/streets.js"></script>
+        
+        <span id="copy">
+          &copy; 2010
+          <a href="http://www.cloudmade.com/">CloudMade</a>,
+          <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors,
+          <a href="http://creativecommons.org/licenses/by-sa/2.0/">CCBYSA</a>.
+        </span>
+        {{/hack_map}}
+    </div>
+</div>
+<div class="clearfix"></div>
+<br />
+<br />

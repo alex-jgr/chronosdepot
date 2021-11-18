@@ -1,0 +1,85 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>{{#project}}{{name}}{{/project}}</strong>
+    </div>
+    <div class="panel-body">
+        <form method="post" action="/worklogs/project/{{#project}}{{id}}{{/project}}">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <div class="row" id="date-filters">
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="input-group">
+                                <label class="input-group-addon">From</label>
+                                <input class="form-control" type="text" id="start-time" placeholder="Date"/>
+                            </div>
+                            <input type="hidden" name="start_date" id="start_date" value="{{start}}" />
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="input-group">
+                                <label class="input-group-addon">Until</label>
+                                <input class="form-control" type="text" id="end-time" placeholder="Date"/>
+                            </div>
+                            <input type="hidden" name="end_date" id="end_date" value="{{end}}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info form-control" type="submit">Update...</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-default form-control" type="button" id="download-invoice">Download invoice</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-default form-control" type="button" id="send-invoice">Send invoice</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <input type="hidden" id="user-date-format" value="{{date_format}}"/>
+
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Duration</th>
+                <th>Start time</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody id="worklogs-table">
+            {{#tasks}}
+            <tr>
+                <td>
+                    {{task_goal}}
+                </td>
+                <td>
+                    {{human_duration}}
+                </td>
+                <td class="start_time" data-unix="{{start_time}}">
+                    {{human_start}}
+                </td>
+                <td>
+                    {{note}}
+                </td>
+            </tr>
+            {{/tasks}}
+        </tbody>
+    </table>
+</div>
+<input type="hidden" id="user-date-format" value="{{date_format}}" />

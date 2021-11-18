@@ -1,0 +1,1 @@
+<?phpdefined('SYSPATH') or die('No direct script access.');/** * Description of Facebook * * @author Alexandru */class FB extends Kohana_Facebook{    }

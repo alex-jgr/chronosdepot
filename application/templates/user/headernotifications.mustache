@@ -1,0 +1,6 @@
+<a href="/user/notifications"><i class="glyphicon glyphicon-send"></i>  Notifications {{#notif_count}}(<span id="remaining-notifications">{{notif_count}}</span>){{/notif_count}}</a>
+<ul id="header-notifications" class="hidden-xs">
+    {{#notifications}}
+        <li class="{{status}}" data-id="{{id}}" id="h-notification-{{id}}">{{{info}}}</li>
+    {{/notifications}}
+</ul>

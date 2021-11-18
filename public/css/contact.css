@@ -1,0 +1,44 @@
+.full_content.footer.social_icons{
+    text-align: center;
+}
+.social_icon{
+    height: 80px;
+    width: 80px;
+    display: inline-block;
+}
+.social_icon.fb{
+    background: url('/public/img/resources/fb-icon.png') no-repeat center;
+    background-size: 85%;
+}
+.social_icon.gh{
+    background: url('/public/img/resources/github-logo.png') no-repeat center;
+    background-size: 70%;
+    background-position: 15px 15px;
+}
+.social_icon.tw{
+    background: url('/public/img/resources/twitter.png') no-repeat center;
+    background-size: 85%;
+}
+.social_icon.bl{
+    background: url('/public/img/resources/blogger.png') no-repeat center;
+    background-size: 85%;
+}
+.social_icon.yt{
+    background: url('/public/img/resources/youtube.png') no-repeat center;
+    background-size: 85%;
+}
+.social_icon.gp{
+    background: url('/public/img/resources/google.png') no-repeat center;
+    background-size: 55%;
+}
+.social_icon.tb{
+    background: url('/public/img/resources/tumblr.png') no-repeat center;
+    background-size: 85%;
+}
+.social_icon.li{
+    background: url('/public/img/resources/li-icon.png') no-repeat center;
+    background-size: 85%;
+}
+.social_icon:hover{
+    background-color: #ffffff;
+}

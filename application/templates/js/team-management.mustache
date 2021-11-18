@@ -1,0 +1,33 @@
+<script type="text/mustache-template" id="task-types-template">
+    {{#task_types}}
+        <div class="lbjs-item item-{{id}}{{#positions}} position-{{id}}{{/positions}}" data-value="{{id}}">{{name}}</div>
+    {{/task_types}}
+</script>
+
+<script type="text/mustache-template" id="positions-options">
+    {{#positions}}
+        <option value="{{id}}">{{name}}</option>
+    {{/positions}}
+</script>
+
+<script type="text/mustache-template" id="team-member-template">
+    {{#user}}
+        <tr id="team-member-{{id}}">
+            <td><a href="/user/profile/{{id}}"><i class="glyphicon glyphicon-user"></i> {{firstname}} {{lastname}}</a></td>
+            <td><button data-user="{{id}}" data-name="{{firstname}} {{lastname}}" type="button" class="task-types btn btn-default" data-toggle="modal" data-target=".manage-task-types"><i class="glyphicon glyphicon-tasks"></i> Task types / Position</button></td>
+            <td><button data-user="{{id}}" data-name="{{firstname}} {{lastname}}" type="button" class="pull-right kick btn btn-danger" data-toggle="modal" data-target=".kick-user"><i class="glyphicon glyphicon-log-out"></i> Exclude</button></td>
+        </tr>
+    {{/user}}
+</script>
+
+<script type="text/mustache-template" id="team-request-template">
+    {{#request}}
+        <li id="team-request-{{id}}">
+            <div class="btn-group input-group">
+                <a class="input-group-addon info pending" href="/user/profile/{{user_id}}">{{username}}</a>
+                <button class="btn btn-info disabled" data-request="{{id}}"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                <button type="button" class="btn btn-danger cancel form-control" data-request="{{id}}"><i class="glyphicon glyphicon-remove-circle"></i></a>
+            </div>
+        </li>
+    {{/request}}
+</script>

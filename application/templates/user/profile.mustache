@@ -1,0 +1,73 @@
+<div class="col-md-4 col-xs-12">
+    <input type="hidden" id="user-id" value="{{id}}"/>
+    <div class="profile-image" id="image-preview">
+        {{#image}}
+            {{#public_path}}
+                <center><img class="thumbnail" src="{{public_path}}" alt /></center>
+            {{/public_path}}
+            {{^public_path}}
+                <center><img class="thumbnail" src="/public/img/chronosuser.jpg" alt /></center>
+            {{/public_path}}
+        {{/image}}
+        {{^image}}
+        {{/image}}
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Invite {{username}} to your teams
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-condensed listbox-teams">
+                <tbody class="teams">
+                {{#managed_teams}}
+                    <tr class="team" id="team-{{id}}">
+                        <td>
+                            <span class="team pull-left">
+                                <img class="thumbnail" src="{{image}}"/> <a href="/team/profile/{{id}}">{{name}}</a>
+                            </span>
+                            {{^member}}
+                            <button class="btn btn-info pull-right add-to-team" data-team_id="{{id}}">
+                                <i class="glyphicon glyphicon-check"></i>
+                            </button>
+                            {{/member}}
+                            {{#member}}
+                                <span class="pull-right btn btn-default disabled">Member</span>
+                            {{/member}}
+                             <div class="clearfix"></div>
+                        </td>
+                    </tr>
+                {{/managed_teams}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-8 col-xs-12" id="right-panel">
+    <h3>{{firstname}} {{lastname}}</h3>
+    <p>{{headline}}</p>
+    <br />
+    {{#description}}
+    <label>About</label> <br />
+    <div class="description">
+        {{{description}}}
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    {{/description}}
+    <div class="memberships">
+        <h4>Public teams membership</h4>
+        <ul class="list-unstyled listbox-teams">
+            {{#user_teams}}
+                <li class="item-{{id}}" data-value="{{id}}">
+                <span class="pull-left">
+                    <span class="team">
+                        <img class="thumbnail" src="{{image}}"/> <a href="/team/profile/{{id}}">{{name}}</a>
+                    </span>
+                </span>
+                <div class="clearfix"></div>
+                </li>
+            {{/user_teams}}
+        </ul>
+    </div>
+</div>

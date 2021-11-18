@@ -1,0 +1,218 @@
+<div class="col-md-12">
+    <h3>
+        {{#team}}
+            Manage team: {{name}}
+            <input type="hidden" id="team-id" value="{{id}}"/>
+        {{/team}}
+    </h3>
+    <div class="clearfix"></div>
+    <br />
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>
+                    Members
+                </h4>
+                <div class="panel panel-default">
+                    <div class="panel-body table-panel-container">
+                        <div class="row">
+                        <table id="team-members" class="table table-hover">
+                            <tbody id="team-members-table">
+                                {{#members}}
+                                    <tr id="team-member-{{id}}">
+                                        <td><a href="/user/profile/{{id}}"><i class="glyphicon glyphicon-user"></i> {{firstname}} {{lastname}}</a></td>
+                                        <td><button data-user="{{id}}" data-name="{{firstname}} {{lastname}}" type="button" class="task-types btn btn-default" data-toggle="modal" data-target=".manage-task-types"><i class="glyphicon glyphicon-tasks"></i><span class="hidden-xs"> Task types / Position</span></button></td>
+                                        <td><button data-user="{{id}}" data-name="{{firstname}} {{lastname}}" type="button" class="pull-right kick btn btn-danger" data-toggle="modal" data-target=".kick-user"><i class="glyphicon glyphicon-log-out"></i><span class="hidden-xs"> Exclude</span></button></td>
+                                    </tr>
+                                {{/members}}
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" id="team-requests-container">
+                <h4>
+                    Find new members
+                </h4>
+                <div class="col-xs-12">
+                    <div class="row">    
+                        <div class="input-group">
+                            <label class="input-group-addon" for="find-user"><i class="glyphicon glyphicon-search"></i> User</label>
+                            <input type="text" class="form-control" id="find-user" placeholder="Email..." />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <a id="selected-user" target="_blank" class="form-control"></a>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <button class="btn btn-info btn-xs form-control" id="add-user-to-team">Send invitation</button>
+                        <input type="hidden" id="invite-user-id" />
+                        <input type="hidden" id="invite-email" />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+                    
+                <h4>
+                    Membership requests
+                </h4>
+                
+                <ul id="team-requests" class="form-horizontal team-requests">
+                    {{#join_requests}}
+                        <li id="team-request-{{id}}">
+                            <div class="btn-group input-group">
+                                <a class="input-group-addon info" href="/user/profile/{{user_id}}">{{username}}</a>
+                                <button type="button" class="btn btn-success action" data-request="{{id}}"><i class="glyphicon glyphicon-ok-circle"></i></a>
+                                <button type="button" class="btn btn-danger cancel" data-request="{{id}}"><i class="glyphicon glyphicon-remove-circle"></i></a>
+                            </div>
+                        </li>
+                    {{/join_requests}}
+                    {{^join_requests}}
+                        <li>There are no pending join requests...</li>
+                    {{/join_requests}}
+                </ul>
+               
+                <br />
+                <h4>
+                    Team invitations
+                </h4>
+                
+                <ul id="team-invites" class="form-horizontal team-requests">
+                    {{#invite_requests}}
+                        <li id="team-request-{{id}}">
+                            <div class="btn-group input-group">
+                                <a class="input-group-addon info pending" href="/user/profile/{{user_id}}">{{username}}</a>
+                                <button class="btn btn-info disabled" data-request="{{id}}"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                <button type="button" class="btn btn-danger cancel" data-request="{{id}}"><i class="glyphicon glyphicon-remove-circle"></i></a>
+                            </div>
+                        </li>
+                    {{/invite_requests}}
+                    {{^invite_requests}}
+                        <li>There are no pending invitations...</li>
+                    {{/invite_requests}}
+                </ul>
+                
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    
+
+    </div>
+</div>
+<div id="modals-container">
+    <div class="modal fade manage-task-types" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="manage-user">
+                        Tasks types available for <span id="task-types-user-name"></span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <label class="input-group-addon"><i class="glyphicon glyphicon-search"></i> Select position</label>
+                                    <select class="form-control" id="filter-task-types">
+                                        <option value="all">All</option>
+                                        {{#positions}}
+                                            <option value="{{id}}">{{name}}</option>
+                                        {{/positions}}
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Assign task types to user
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="lbjs">
+                                            <div class="lbjs-list task-types-list" id="listbox-task-types-list">
+                                                {{#task_types}}
+                                                    <div class="lbjs-item item-{{id}}{{#positions}} position-{{id}}{{/positions}}" data-value="{{id}}">{{name}}</div>
+                                                {{/task_types}}
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <button class="btn btn-default col-md-12" id="assign-task-type"><i class="glyphicon glyphicon glyphicon-hand-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Assigned task types
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="lbjs">
+                                            <div class="lbjs-list positions-list" id="listbox-assigned-task-types">
+                                                {{#task_types}}
+                                                    <div class="lbjs-item item-{{id}}" data-value="{{id}}">{{name}}</div>
+                                                {{/task_types}}
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <button class="btn btn-default col-md-12" id="release-task-type"><i class="glyphicon glyphicon glyphicon-hand-left"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="col-md-12">
+                                <button class="col-md-12 btn btn-success" type="button" id="save-task-types">Save task types</button>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-8">
+                                        <a class="btn btn-default form-control" id="edit-task-types-positions" href="/position/manage"><i class="glyphicon glyphicon-cog"></i> Edit task types and positions</a>
+                                        <br />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4">
+                                        <button class="btn btn-default form-control" type="button" data-toggle="modal" data-target=".manage-task-types">Close</button>
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <input type="hidden" id="manage-users-task-id"/>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade kick-user" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel panel-danger">
+                    <div class="panel-heading" id="manage-users-message">
+                        Are you sure that you want to exclude <span id="kick-user-name"></span> from {{#team}}{{name}}{{/team}}?
+                    </div>
+                    <div class="panel-body">
+                        <p>This user will be relieved of all the projects and tasks that are currently assigned to him in this team if there are any. That means if you change your mind after excluding him you will have to manually add his tasks back again.</p>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="clearfix"></div>
+                        <input type="hidden" id="kick-user-id"/>
+                        <button class="kick-user-confirm btn btn-danger" >Confirm</button>
+                        <button class="kick-user-cancel btn btn-default" data-toggle="modal" data-target=".kick-user">Cancel</button>
+                        <button id="close-kick-modal" type="button" class="hidden" data-toggle="modal" data-target=".kick-user"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

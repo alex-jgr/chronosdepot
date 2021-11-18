@@ -1,0 +1,71 @@
+<h3>Team: {{name}}</h3>
+<br />
+<div class="row">
+        <div class="col-md-4">
+            {{#image_id}}
+            <center>
+                <div class="team-image">
+                    <img class="thumbnail" src="{{#image}}{{public_path}}{{/image}}" alt />
+                </div>
+            </center>
+            {{/image_id}}
+            {{#id}}
+                {{#invite_request}}
+                    <a class="btn btn-info form-control" href="/team/accept_invitation/{{id}}"><i class="glyphicon glyphicon-plus"></i> Accept invitation</a>
+                {{/invite_request}}
+                {{#join_request}}
+                    <label>Your request is pending</label>
+                {{/join_request}}
+                {{#can_request}}
+                    <button class="btn btn-info form-control" id="request-team-join" data-team_id="{{id}}" type="button"><i class="glyphicon glyphicon-plus"></i> Join team</button>
+                {{/can_request}}
+                {{#can_leave}}
+                    <a class="btn btn-danger form-control" href="/team/leave/{{id}}"><i class="glyphicon glyphicon-minus-sign"></i> Leave this team</a>
+                {{/can_leave}}
+            {{/id}}
+            {{^id}}
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <center><h4>The team that you are looking for could not be found.</h4></center>
+                </div>
+            </div>
+            {{/id}}
+            <div class="clearfix"></div>
+            <br />
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Details
+                </div>
+                <div class="panel-body">
+                    {{{description}}}
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Members
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed">
+                        <tbody>
+                            {{#members}}
+                                <tr>
+                                    <td>
+                                    {{#user}}
+                                        <a href="/user/profile/{{id}}">{{username}}</a>
+                                    {{/user}}
+                                    </td>
+                                    <td>
+                                    {{#task_types}}
+                                        <label class="label label-info">{{name}}</label>
+                                    {{/task_types}}
+                                    </td>
+                                </tr>
+                            {{/members}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>

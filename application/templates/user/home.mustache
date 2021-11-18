@@ -1,0 +1,244 @@
+<div class="row">
+    <div class="col-md-8" id="home-dashboard">    
+        <div class="home-panel" id="owned-projects">
+            <h3>
+                Owned Projects...
+            </h3>
+            <div class="clearfix"></div>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body row table-panel-container">
+                    <table class="table table-hover">
+                        <tbody>
+                            {{#owned_projects}}
+                                <tr>
+                                    <td><a href="/project/work/{{id}}" class="namelink"> <i class="glyphicon glyphicon-play-circle"></i> <strong>{{name}}</strong></a> </td>
+                                    <td><a class="manage" href="/project/operate/{{id}}"><i class="glyphicon glyphicon-tasks visible-xs"></i><span class="hidden-xs">Manage tasks</span></a></td>
+                                    <td><a class="edit pull-right" href="/project/{{#simple}}simple/{{/simple}}edit/{{id}}"><i class="glyphicon glyphicon-cog visible-xs"></i><span class="hidden-xs">Edit project</span></a><br /></td>
+                                    <td><a class="pull-right" href="/worklogs/project/{{id}}">Work logs</a></td>
+                                </tr>
+                            {{/owned_projects}}
+                        </tbody>
+                    </table>
+                </div>
+                {{^owned_projects}}
+                    <div class="panel-footer">
+                        <p>You do not own any project at the moment.</p>
+                    </div>
+                {{/owned_projects}}
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="input-group">
+                        <label class="input-group-addon"><i class="glyphicon glyphicon-plus"></i></label>
+                        <a class="btn btn-primary form-control" href="/project/{{#simple}}simple/{{/simple}}edit">Create new project...</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+            </div>
+            
+        </div>
+        <div class="home-panel" id="contracted-projects">
+            <h3>
+                Contracted Projects...
+            </h3>
+            <div class="clearfix"></div>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body row table-panel-container">
+                     <table class="table table-hover">
+                        <tbody>
+                            {{#owner_projects}}
+                                <tr>
+                                    <td><a href="/project/work/{{id}}" class="namelink"><i class="glyphicon glyphicon-play-circle"></i> <strong>{{name}}</strong></a><br /></td>
+                                    <td><a class="edit pull-right" href="/worklogs/user/{{id}}"><span class="hidden-xs">Review my work logs</span><span class="visible-xs glyphicon glyphicon-file"></span></a><br /></td>
+                                </tr>
+                            {{/owner_projects}}
+                        </tbody>
+                    </table>
+                </div>
+                {{^owner_projects}}
+                    <div class="panel-footer">
+                        <p>You haven not been assigned to any project yet.</p>
+                    </div>
+                {{/owner_projects}}
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <h3>
+                Supervised projects:
+            </h3>
+            <div class="clearfix"></div>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body row table-panel-container">
+                     <table class="table table-hover">
+                        <tbody>
+                            {{#supervised_projects}}
+                                <tr>
+                                    <td><a href="/project/supervise/{{id}}" class="namelink"><i class="glyphicon glyphicon-play-circle"></i> <strong>{{name}}</strong></a><br /></td>
+                                    <td><a class="edit pull-right" href="/worklogs/supervise/{{id}}"><span class="hidden-xs">See work logs</span><span class="visible-xs glyphicon glyphicon-file"></span></a><br /></td>
+                                </tr>
+                            {{/supervised_projects}}
+                        </tbody>
+                    </table>
+                </div>
+                {{^supervised_projects}}
+                    <div class="panel-footer">
+                        <p>You currently do not supervise any projects.</p>
+                    </div>
+                {{/supervised_projects}}
+            </div>
+        </div>
+        <div class="home-panel" id="owned-teams">
+            <h3>
+                Managed teams...
+            </h3>
+            <div class="clearfix"></div>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body row table-panel-container">
+                     <table class="table table-hover">
+                        <tbody>
+                            {{#managed_teams}}
+                                <tr>
+                                    <td class="col-xs-4 col-sm-3 col-md-2"><a href="/team/profile/{{id}}"><img class="thumbnail" src="{{#image}}{{image}}{{/image}}{{^image}}/public/img/no-team-img.png{{/image}}" alt /></a></td>
+                                    <td class="col-xs-8 col-sm-9 col-md-10">
+                                        <a href="/team/profile/{{id}}" class="namelink">{{name}}</a>
+                                        <div class="btn-group pull-right hidden-xs">
+                                            <a class="btn btn-default" href="/team/manage/{{id}}">Manage</a>
+                                            <a class="btn btn-info" href="/team/edit/{{id}}" class="pull-right">Edit</a>
+                                        </div>
+                                        <div class="btn-group pull-right visible-xs">
+                                            <a class="btn btn-default" href="/team/manage/{{id}}"><i class="glyphicon glyphicon-user"></i></a>
+                                            <a class="btn btn-info" href="/team/edit/{{id}}" class="pull-right"><i class="glyphicon glyphicon-edit"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/managed_teams}}
+                        </tbody>
+                    </table>
+                </div>
+                {{^managed_teams}}
+                    <div class="panel-footer">
+                        <p>You are not managing any teams at the moment.</p>
+                    </div>
+                {{/managed_teams}}
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="input-group">
+                        <label class="input-group-addon"><i class="glyphicon glyphicon-plus"></i></label>
+                        <a class="btn btn-info form-control" href="/team/edit">Create new team</a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="input-group">
+                        <label class="input-group-addon"><i class="glyphicon glyphicon-cog"></i></label>
+                        <a class="btn btn-default form-control" id="edit-task-types-positions" href="/position/manage">
+                            <span class="hidden-xs">Manage task types and position types</span>
+                            <span class="visible-xs">Task types & positions</span>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="home-panel" id="owner-teams">
+            <h3>
+                Team memberships...
+            </h3>
+            <div class="clearfix"></div>
+            <br />
+            <div class="panel panel-default">
+            <div class="panel-body row table-panel-container">
+                 <table class="table table-hover">
+                    <tbody>
+                        {{#teams}}
+                            <tr>
+                                <td class="col-xs-4 col-sm-3 col-md-2"><a href="/team/profile/{{id}}"><img class="thumbnail" src="{{#image}}{{image}}{{/image}}{{^image}}/public/img/no-team-img.png{{/image}}" alt /></a></td>
+                                <td class="col-xs-8 col-sm-9 col-md-10">
+                                    <a href="/team/profile/{{id}}" class="namelink">{{name}}</a>
+                                    <button type="button" class="btn btn-danger pull-right leave-team-trigger" data-id="{{id}}" data-name="{{name}}" class="pull-right" data-toggle="modal" data-target="#leave-team-dialog">
+                                        <span class="visible-xs">
+                                            <i class="glyphicon glyphicon-log-out"></i>
+                                        </span>
+                                        <span class="hidden-xs">Leave</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        {{/teams}}
+                    </tbody>
+                </table>
+            </div>
+            {{^teams}}
+                 <div class="panel-footer">
+                    <p>You are not a member of any team at the moment.</p>
+                </div>
+            {{/teams}}
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <form class="input-group" action="/team/search" method="post">
+                        <label class="input-group-addon" for="search-teams"><i class="glyphicon glyphicon-search"></i></label>
+                        <input class="form-control" type="text" name="team_name" id="search-teams" placeholder="Team name..."/>
+                        <label class="input-group-addon"></label>
+                        <button class="btn btn-default form-control">Search</button>
+                    </form>
+                </div>
+                <span class="clearfix"></span>
+                <br />
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-4" id="home-notifications-div">
+        <h4 class="notifications-heading">
+            <a href="/user/notifications">Notifications</a>
+        </h4>
+        <div id="home-notifications-container">
+            <div id="notifications-container">
+                <ul id="home-notifications">
+                    {{#notifications}}
+                        <li class="{{status}}" data-id="{{id}}" id="notification-{{id}}">{{{info}}}</li>
+                    {{/notifications}}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="modals-container">
+    <div class="modal fade" id="leave-team-dialog" tabindex="-1" role="dialog" aria-labelledby="leaveTeamModal" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        Are you sure that you want to leave this team?
+                    </div>
+                    <div class="panel-body">
+                        <strong>
+                            <p id="leave-team-name">{{name}}</p>
+                        </strong>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a class="btn btn-danger form-control" id="leave-team-id">Leave</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-default form-control" type="button" data-toggle="modal" data-target="#leave-team-dialog">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

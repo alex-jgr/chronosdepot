@@ -1,0 +1,77 @@
+<div class="clearfix"></div>
+<br />
+<h4>
+    {{#project}}
+        <a href="/project/work/{{id}}"><strong>{{name}}</strong></a>
+    {{/project}}
+    {{#parents}}
+        / <a href="/project/work/{{project_id}}/{{id}}">{{goal}}</a>
+    {{/parents}}
+</h4>
+<div class="clearfix"></div>
+<br />
+<div class="progress" id="parent-progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{parent_progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{parent_progress}}%" >
+        {{parent_progress}}%
+    </div>
+</div>
+{{{parent_description}}}
+<div class="clearfix"></div>
+<br />
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="input-group">
+            <label class="input-group-addon fixed-width-label">Find task</label>
+            <input type="text" class="form-control" id="task-goal-filter" />
+        </div>
+        <br />
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="input-group">
+            <label class="input-group-addon fixed-width-label">Show</label>
+            <select id="task-status-filter" class="form-control">
+                <option value="all">All</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="finished">Finished</option>
+            </select>
+        </div>
+        <br />
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <button id="search-whole-project" type="button" class="btn btn-default form-control"><i class="glyphicon glyphicon-search"></i> Search in the whole project</button>
+        <form method="post" action="/task/search/{{project_id}}" id="global-search">
+            <input name="keywords" type="hidden" id="global-search-keywords" />
+            <input name="status" type="hidden" id="global-search-status" />
+        </form>
+    </div>
+</div>
+<div class="clearfix"></div>
+<br />
+<div class="row" id="tasks-container">
+    {{>timer_tasks}}
+    {{^tasks}}
+        <div class="col-xs-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <p>No sub tasks were assigned for you under this task or project.</p>
+                    <p>Navigate back with any of these links: </p>
+                    <ul>
+                        <li>
+                            {{#project}}
+                                <a href="/project/work/{{id}}">{{name}}</a>
+                            {{/project}}
+                        </li>
+                    {{#parents}}
+                    <li>
+                        <p><a href="/project/work/{{project_id}}/{{id}}">{{goal}}</a></p>
+                    </li>
+                    {{/parents}}
+                    <li>
+                        <p><a href="/user/home/contracted-projects">Projects</a></p>
+                    </li>
+                    </ul>
+                </div>
+            </div>            
+        </div>
+    {{/tasks}}
+</div>

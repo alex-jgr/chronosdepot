@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title id="page-title">Chronos Depot {{#notif_count}}( {{notif_count}} ){{/notif_count}}</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="index, follow" />
+        
+        {{#meta_content}}
+            <meta name="title" content="{{title}}"/>
+            <meta name="keywords" content="{{{keywords}}}" />
+            <meta name="description" content="{{{description}}}" />
+        {{/meta_content}}
+        
+        {{#facebook_meta}}
+            {{>facebook}}
+        {{/facebook_meta}}
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <link href="/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+        <link href="/public/css/style_responsive.css" rel="stylesheet" type="text/css" />
+        
+        {{#colorpicker}}
+            <link rel="stylesheet" href="/public/css/colorpicker/docs.css" type="text/css" />
+        {{/colorpicker}}
+        {{#theme}}<link rel="stylesheet" id="selected-user-theme" href="/public/css/themes/{{theme}}.css" type="text/css" />{{/theme}}
+        <link href="/public/css/offcanvas.css" rel="stylesheet" type="text/css" />
+        {{#css_files}}
+            <link href="/public/css/{{name}}" rel="stylesheet" type="text/css" />
+        {{/css_files}}
+        <link rel="icon" id="page-icon" type="image/ico" href="/public/img/timer_icon.ico">
+    </head>
+    
+    <body style="background: {{background}};">
+
+        <header class="navbar navbar-inverse navbar-static-top" id="top" role="banner">
+            <!--<div class="container">-->
+                {{>navigation_responsive}}
+            <!--</div>-->
+        </header>
+        {{#user}}
+        <div id="home-panel-heading">
+            <ul class="nav nav-tabs nav-justified operations hidden-xs">
+                <li role="presentation">
+                    <a class="menu-item owned-projects" {{^this_is_home}}href="/user/home/owned-projects"{{/this_is_home}} data-target="#owned-projects" data-selection="owned-projects">
+                        <span class="menu-icon">
+                            <i class="glyphicon glyphicon-queen"></i>
+                        </span>
+                        <span class="menu-name">
+                            Project leader
+                        </span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a class="menu-item contracted-projects" {{^this_is_home}}href="/user/home/contracted-projects"{{/this_is_home}} data-target="#contracted-projects" data-selection="contracted-projects">
+                        <span class="menu-icon">
+                            <i class="glyphicon glyphicon-dashboard"></i> 
+                        </span>
+                       <span class="menu-name">
+                            Project member
+                        </span>
+                    </a>
+                </li>
+                {{^simple}}
+                    <li role="presentation">
+                        <a class="menu-item owned-teams" {{^this_is_home}}href="/user/home/owned-teams"{{/this_is_home}} data-target="#owned-teams" data-selection="owned-teams">
+                           <span class="menu-icon">
+                               <i class="glyphicon glyphicon-king"></i>
+                            </span>
+                           <span class="menu-name">
+                               Teams leadership
+                            </span>
+                        </a>
+                    </li>
+                {{/simple}}
+                <li role="presentation">
+                    <a class="menu-item owner-teams" {{^this_is_home}}href="/user/home/owner-teams"{{/this_is_home}} data-target="#owner-teams" data-selection="owner-teams">
+                       <span class="menu-icon">
+                        <i class="glyphicon glyphicon-tent"></i>
+                        </span>
+                       <span class="menu-name">
+                            Teams membership
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <input type="hidden" id="selected-home-panel" value="{{home_panel}}" data-change_url="{{this_is_home}}"/>
+        </div>
+        {{/user}}
+        <div class="clearfix"></div>
+        <div class="container-fluid">
+            <div class="clearfix"></div>
+                {{#user}}
+                {{#has_active_tasks}}
+                    <div class="row-offcanvas row-offcanvas-right" id="active-tasks-container">
+                        <div class="col-xs-12 sidebar-offcanvas">
+                            <div class="panel panel-default">
+                                <div class="panel-heading pointer-cursor collapsed" data-toggle="collapse" data-target="#tasks-container" aria-expanded="false" aria-controls="collapseExample">
+                                    <div class="row">
+                                        <div class="col-xs-10 danger">Active tasks: {{has_active_tasks}}</div>
+                                        <div class="col-xs-2"><i class="glyphicon glyphicon-menu-right pull-right danger" id="see-tasks"></i><i class="glyphicon glyphicon-menu-down pull-right danger" id="hide-tasks"></i></div>
+                                    </div>
+                                </div>
+                                <div class="panel-body collapse" id="tasks-container">
+ 
+                                    {{>timer_tasks}}
+ 
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                {{/has_active_tasks}}
+                <div class="row-offcanvas row-offcanvas-right" id="user-menu">
+                    <div class="col-xs-12 col-md-4 sidebar-offcanvas visible-xs" id="sidebar" role="navigation">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-folder-open"></span> &nbsp; Menu
+                            </div>
+                            <div class="panel-body list-group padding-10 form-group">
+                                    <ul class="nav nav-tabs nav-justified operations">
+                                        <li role="presentation">
+                                            <a class="menu-item owned-projects" {{^this_is_home}}href="/user/home/owned-projects"{{/this_is_home}} data-target="#owned-projects" data-selection="owned-projects">
+                                                <span class="menu-name">
+                                                    Project leader
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a class="menu-item contracted-projects" {{^this_is_home}}href="/user/home/contracted-projects"{{/this_is_home}} data-target="#contracted-projects" data-selection="contracted-projects">
+                                               <span class="menu-name">
+                                                    Project member
+                                                </span>
+                                            </a>
+                                        </li>
+                                        {{^simple}}
+                                        <li role="presentation">
+                                            <a class="menu-item owned-teams" {{^this_is_home}}href="/user/home/owned-teams"{{/this_is_home}} data-target="#owned-teams" data-selection="owned-teams">
+                                               <span class="menu-name">
+                                                   Teams leadership
+                                                </span>
+                                            </a>
+                                        </li>
+                                        {{/simple}}
+                                        <li role="presentation">
+                                            <a class="menu-item owner-teams" {{^this_is_home}}href="/user/home/owner-teams"{{/this_is_home}} data-target="#owner-teams" data-selection="owner-teams">
+                                               <span class="menu-name">
+                                                    Teams membership
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">-->
+                    <div class="col-xs-12" id="home-panels">
+                            <div class="panel" id="main-panel">
+                                <div class="panel-body">
+                {{/user}}
+
+                                        {{{content}}}
+
+                {{#user}}
+                                </div>
+                            </div>
+                    </div>
+                <!--</div>-->
+            {{/user}}
+            </div>
+
+    
+    {{#js_templates}}
+    {{{content}}}
+    {{/js_templates}}
+    {{{bottom_content}}}
+    <div id="modals-bottom" class="row">
+    </div>
+    {{>footer}}
+    
+    {{#facebook_meta}}
+        <script>           
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '{{app_id}}',
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : 'v2.3'
+                });
+              
+//                FB.getLoginStatus(function(response) {
+//                    statusChangeCallback(response);
+//                });
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+            
+      </script>
+    {{/facebook_meta}}
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63458911-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    </body>
+</html>

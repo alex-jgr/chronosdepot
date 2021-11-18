@@ -1,0 +1,512 @@
+<div id="operate-panels">
+    <h3>
+        {{#project}}{{name}} <a href="/project/{{#simple}}simple/{{/simple}}edit/{{id}}" class="btn btn-default pull-right">Edit project</a>{{/project}}
+    </h3>
+    <div class="clearfix"></div>
+    <br />
+    <div>
+        {{#totals}}
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="input-group">
+                    <label class="input-group-addon">
+                        Estimated work: 
+                    </label>
+                    <input class="form-control" readonly type="text" id="total-estimated-work" value="{{total_estimate}}"/>
+                </div>
+                <br />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="input-group">
+                    <label class="input-group-addon">
+                        Done work:
+                    </label>
+                    <input class="form-control" readonly type="text" id="total-project-work" value="{{total_work}}" />
+                </div>
+                <br />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="input-group">
+                    <label class="input-group-addon">
+                        Value:
+                    </label>
+                    <input class="form-control" readonly type="text" id="total-project-spendings" value="{{total_spendings}}" />
+                    <label class="input-group-addon">
+                        {{currency}}
+                    </label>
+                </div>
+                <br />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="input-group">
+                    <label class="input-group-addon">
+                        Expenses:
+                    </label>
+                    <input class="form-control" readonly type="text" id="total-project-expenses" value="{{total_expenses}}" />
+                    <label class="input-group-addon">
+                        {{currency}}
+                    </label>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+        <h4>Overall project progress</h4>
+        <div class="progress" id="parent-progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{project_progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{project_progress}}%" >
+                {{project_progress}}%
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+        {{/totals}}
+        <div class="row">
+            <div class="col-xs-4">
+                <button class="btn btn-primary form-control" id="add-task" type="button" data-toggle="modal" data-target=".create-task">
+                    <i class="glyphicon glyphicon-plus"></i> <span class="hidden-xs">Add new task</span>
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button class="btn btn-warning form-control" id="default-assignments" type="button" data-toggle="modal" data-target=".default-assignments">
+                    <span class="visible-xs"><i class="glyphicon glyphicon-forward"></i> <i class="glyphicon glyphicon-user"></i></span><span class="hidden-xs">Default tasks allocation</span>
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <a class="btn btn-default form-control" href="/worklogs/project/{{project_id}}">
+                    <span class="visible-xs"><i class="glyphicon glyphicon-forward"></i> <i class="glyphicon glyphicon-user"></i></span><span class="hidden-xs">Go to worklogs</span>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <br /> <br />
+        <div class="task-item hidden-xs hidden-sm">
+            <span class="pull-left col-md-6"><i></i> <label>Tasks</label></span>
+            <span class="col-md-4">
+                <span class="time-status col-md-6"><span>Work/ Estimate</span></span>
+                <span class="col-md-6"><span>Spent/ Budget</span></span>
+            </span>
+            <span class="pull-right col-md-2">Options</span>
+            <div class="clearfix"></div>
+        </div>
+        <div id="project-tasks">
+            {{#tasks}}
+            <div class="task-item {{status}} {{#parent_id}}child-of-{{parent_id}}{{/parent_id}}" id="task-{{id}}" data-id="{{id}}" data-status="{{status}}" data-progress="{{progress}}" data-parent="{{parent_id}}">
+                <div class="visible-xs col-xs-12"><br /></div>
+                <span class="pull-left col-sm-6 col-xs-12">
+                    <span class="level level-{{level}}"></span>
+                    <i class="glyphicon glyphicon-tasks"></i> 
+                    <span class="collapse-control">
+                        {{#has_children}}
+                            <button class="btn btn-default pull-left expand-collapse" data-id="{{id}}" data-project_id="{{project_id}}" data-parent="{{parent_id}}">
+                                <i class="glyphicon glyphicon-chevron-right visible"></i>
+                                <i class="glyphicon hidden">!</i>
+                                <i class="loading"></i>
+                            </button>
+                        {{/has_children}}
+                    </span>
+                    {{goal}} (<span id="task-progress-{{id}}">{{progress}}</span>%)
+                </span>
+
+                <span class="col-sm-4 col-xs-12">
+                    <span class="time-status col-sm-6 col-xs-12">
+                        <span class="level level-1 visible-xs"></span>{{duration}}/ {{estimate}}
+                    </span>
+                    <span class="col-sm-6 col-xs-12">
+                        <span class="level level-1 visible-xs"></span>{{spent}}/ {{budget}}
+                    </span>
+                </span>
+                <span class="pull-right col-sm-2 col-xs-12 buttons-group">
+                    <span class="level level-1 visible-xs"></span>
+                    <span class="level level-{{level}} visible-xs"></span>
+                    <button class="btn btn-default add-subtask" 
+                            data-id="{{id}}" 
+                            data-task_type_id="{{task_type_id}}" 
+                            data-goal="{{goal}}" 
+                            data-estimate_hours="{{estimate_hours}}" 
+                            data-estimate_minutes="{{estimate_minutes}}" 
+                            data-budget="{{budget}}"
+                            data-description="{{description}}"
+                            data-status="{{status}}"
+                            data-project_id="{{project_id}}"
+                            data-parent_id="{{parent_id}}"
+                            type="button" data-toggle="modal" data-target=".create-task" title="Add a subtask">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                    <button class="btn btn-default edit-task" 
+                            data-id="{{id}}" 
+                            data-task_type_id="{{task_type_id}}" 
+                            data-goal="{{goal}}" 
+                            data-estimate_hours="{{estimate_hours}}" 
+                            data-estimate_minutes="{{estimate_minutes}}" 
+                            data-budget="{{budget}}"
+                            data-description="{{description}}"
+                            data-status="{{status}}"
+                            data-project_id="{{project_id}}"
+                            data-parent_id="{{parent_id}}"
+                            type="button" data-toggle="modal" data-target=".create-task" title="Add a subtask">
+                        <i class="glyphicon glyphicon-wrench"></i>
+                    </button>
+                    <button class="btn btn-default change-status" data-id="{{id}}" type="button" data-toggle="modal" data-target=".change-status-modal" ><i class="glyphicon glyphicon-{{icon}}"></i></button>
+                    <button class="btn btn-default users" id="users-{{id}}" data-id="{{id}}" type="button" data-toggle="modal" data-target=".manage-users" data-goal="{{goal}}"><i class="glyphicon glyphicon-user"></i></button>
+                    <button class="btn btn-default delete-task-button" data-id="{{id}}" type="button"><i class="glyphicon glyphicon-trash"></i></button>
+                    <span class="visible-xs col-xs-12"><br /></span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+            {{/tasks}}
+        </div>
+    </div>
+</div>
+<div id="modals-container">
+    <div class="modal fade create-task" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Add task
+                    </div>
+                    <div class="panel-body">
+                        <input type="hidden" id="task-id" />
+                        <input type="hidden" id="parent-id" />
+                        <input type="hidden" id="project-id" value="{{project_id}}" />
+                        <input type="hidden" id="grandparent-id" />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="goal">Task</label>
+                            <input class="form-control" type="text" name="goal" id="goal"/>
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="task_type_id">Select task type</label>
+                            <select class="form-control" name="task_type_id" id="task-type-id">
+                                <option value="none">None...</option>
+                                {{#task_types}}
+                                <option value="{{id}}">{{name}}</option>
+                                {{/task_types}}
+                            </select>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-7 col-xs-12">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="estimate-hours">Estimate</label>
+                                    <input class="form-control" type="text" id="estimate-hours" name="estimate_hours" placeholder="hh" />
+                                    <label class="input-group-addon" for="estimate-minutes"> : </label>
+                                    <input class="form-control" type="text" id="estimate-minutes" name="estimate_minutes" placeholder="mm" />
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                            </div>
+                            <div class="col-sm-5 col-xs-12">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="budget">Budget</label>
+                                    <input class="form-control" type="text" id="budget" name="budget" />
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                            </div>
+                        </div>
+
+                        <label class="control-label" for="description">Task details</label>
+                        <textarea name="description" class="form-control col-sm-12" id="description" rows="10"></textarea>
+                        <div class="clearfix"></div>
+
+                        <br />
+
+                        <div class="form-inline row">
+                            <div class="col-sm-4 col-xs-12">
+                                <label class="control-label">
+                                    Task status :
+                                </label>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <select class="form-control" name="status" id="status">
+                                    <option value="ongoing">Ongoing</option>
+                                    <option value="finished">Finished</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 col-xs-12" id="edit-users-button">
+                                <button class="btn btn-default users"  id="edit-task-users" data-id="" data-goal="">
+                                    <i class="glyphicon glyphicon-user"></i> 
+                                    <i class="glyphicon glyphicon-user"></i> 
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" id="post-controls">
+                        <div class="col-sm-4 col-xs-12">
+                            <button class="btn btn-success col-md-12 col-xs-12" id="save" type="button">Save</button>
+                            <div class="clearfix col-xs-12"></div>
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <button class="btn btn-warning col-md-12 col-xs-12" id="cancel" type="button">Cancel</button>
+                            <div class="clearfix col-xs-12"></div>
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <button class="btn btn-danger col-sm-12 col-xs-12" id="delete" type="button" data-toggle="modal" data-target=".confirm-delete">Delete</button>
+                            <div class="clearfix col-xs-12"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <button class="hidden" id="hide-task-editor" type="button" data-toggle="modal" data-target=".create-task"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade confirm-delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="panel panel-warning">
+                    <div class="panel-heading" id="delete-message">
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-default pull-left" id="cancel-delete">Cancel</button>
+                        <button class="btn btn-danger pull-right" id="confirm-delete-button">Cofirm</button>
+                        <div class="clearfix"></div>
+                        <input type="hidden" id="confirm-delete-id"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade default-assignments" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <label>Warning! Changing assignments to default rule</label>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label>Changing the user-task assignments to default will involve the following modifications for each task in the presented order:</label>
+                                <p>1. All the previously assigned users to a task will be relieved of it.</p>
+                                <p>2. 1. If a task has users assigned to its parent task all the users assigned to the parent task will be assigned to the current task.</p>
+                                <p>2. 2. If the parent task has no users and the task belongs to a task type, all the users who can do that task type from the project assigned teams will be assigned to the task.</p>
+                                <p>3. The project owner will also be assigned to the task.</p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p><label>Are you sure that you want to reassign the tasks using this rule?</label></p>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="buttons-group col-xs-12">
+                                    <button type="button" class="btn btn-danger col-xs-6" id="confirm-default-assignments" data-project_id="{{project_id}}">Yes</button>
+                                    <button type="button" class="btn btn-default col-xs-6" data-toggle="modal" data-target=".default-assignments">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade change-status-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" id="change-status-message">
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-4">
+                                <button class="btn btn-info col-sm-12 col-xs-12 change-status-btn" data-status="ongoing"><i class="glyphicon glyphicon-eye-open"></i></button>
+                                <div class="caption">
+                                    Ongoing
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                                <button class="btn btn-success col-sm-12 col-xs-12 change-status-btn" data-status="finished"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                                <div class="caption">
+                                    Finished
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-4">
+                                <button class="btn btn-danger col-sm-12 col-xs-12 change-status-btn" data-status="disabled"><i class="glyphicon glyphicon-eye-close"></i></button>
+                                <div class="caption">
+                                    Disabled
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <input type="hidden" id="change-status-id"/>
+                    </div>
+                    <button class="hidden" id="hide-change-status-modal" type="button" data-toggle="modal" data-target=".change-status-modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade manage-users" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="manage-users-message">
+                        Assign task #<label id="assign-users-task-id"></label>: 
+                        "<label id="assign-users-task-name"></label>" to users
+                    </div>
+                    <div class="panel-body">
+                        <div class="row panel-group">
+                            <div class="col-sm-12"> 
+                                <div class="input-group">
+                                    <label class="input-group-addon">
+                                        Filter users by project team
+                                    </label>
+                                    <select id="select-team" class="form-control">
+                                        <option value="none">All</option>
+                                        {{#teams}}
+                                            <option value="{{id}}">{{name}}</option>
+                                        {{/teams}}
+                                    </select>
+                                    {{^teams}}
+                                        <center>No teams have been assigned to this project. Assign teams using the project profile edit page</center>
+                                        <a class="btn btn-info form-control" href="/project/edit/{{project_id}}">Edit project profile</a>
+                                    {{/teams}}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="col-sm-6"> 
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Available users
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="lbjs">
+                                            <div class="lbjs-list available-users-list" id="listbox-available-users-list">
+                                                {{#users}}
+                                                    <div class="lbjs-item item-{{id}}{{#teams}} team-{{id}}{{/teams}} available" data-value="{{id}}">{{username}}</div>
+                                                {{/users}}
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <button class="btn btn-default col-sm-12" id="assign-user"><i class="glyphicon glyphicon glyphicon-hand-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        Assigned users
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="lbjs">
+                                            <div class="lbjs-list task-types-list" id="listbox-assigned-users-list">
+
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <button class="btn btn-default col-sm-12" id="release-user"><i class="glyphicon glyphicon glyphicon-hand-left"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="btn-group col-xs-12">
+                                <button class="btn btn-success col-xs-6" type="button" id="save-task-users">Save assignments</button>
+                                <button class="btn btn-warning col-xs-6" type="button" data-toggle="modal" data-target=".manage-users">Cancel</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <input type="hidden" id="manage-users-task-id"/>
+                    </div>
+                    <button class="hidden" id="hide-manage-users" type="button" data-toggle="modal" data-target=".manage-users"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<br /><br /><br />
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <h4>Symbols:</h4>
+        <table class="table table-hover table-condensed" id="legend">
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="btn btn-default add-subtask">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Add a sub task
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="btn btn-default edit-task">
+                            <i class="glyphicon glyphicon-wrench"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Edit a task
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="btn btn-default change-status" >
+                            <i class="glyphicon glyphicon-thumbs-up"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Change task status: finished
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="btn btn-default change-status" >
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Change task status: ongoing
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="btn btn-default change-status" >
+                            <i class="glyphicon glyphicon-eye-close"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Change task status: disabled
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="btn btn-default users">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Manage users assignation to a task
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="btn btn-default">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Remove a task
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

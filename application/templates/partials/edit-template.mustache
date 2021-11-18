@@ -1,0 +1,204 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="input-group">
+            <label class="input-group-addon" for="name">
+                Template name
+            </label>
+            <input type="text" name="name" value="{{name}}" class="form-control" id="name"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="series">
+                Series
+            </label>
+            <input type="text" name="series" value="{{series}}" class="form-control" id="series"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="number">
+                Start number
+            </label>
+            <input type="text" name="number" value="{{number}}" class="form-control" id="number"/>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group">
+            <label class="input-group-addon" for="currency_1">
+                Currency 1
+            </label>
+            <select name="currency_1" id="currency_1" class="form-control" data-selected_value="{{currency_1}}" data-default_value="978">
+                {{#currencies}}
+                    <option value="{{id}}">{{code}}</option>
+                {{/currencies}}
+            </select>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="currency_2">
+                Currency 2
+            </label>
+            <select name="currency_2" id="currency_2" class="form-control" data-selected_value="{{currency_2}}" data-default_value="0">
+                <option value="0"> - None - </option>
+                {{#currencies}}
+                    <option value="{{id}}">{{code}}</option>
+                {{/currencies}}
+             </select>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="due_time">
+                Due time (number of days)
+            </label>
+            <input type="text" name="due_time" value="{{due_time}}" class="form-control" id="due_time"/>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <h4>Supplier information</h4>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_name">
+                Company / Name
+            </label>
+            <input type="text" name="supplier_name" value="{{supplier_name}}" class="form-control" id="supplier_name"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_misc">
+                Miscellaneous
+            </label>
+            <input type="text" name="supplier_misc" value="{{supplier_misc}}" class="form-control" id="supplier_misc"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_rc_no">
+                R.C. No.
+            </label>
+            <input type="text" name="supplier_rc_no" value="{{supplier_rc_no}}" class="form-control" id="supplier_rc_no"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_vat_no">
+                V.A.T. No.
+            </label>
+            <input type="text" name="supplier_vat_no" value="{{supplier_vat_no}}" class="form-control" id="supplier_vat_no"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_phone">
+                Phone
+            </label>
+            <input type="text" name="supplier_phone" value="{{supplier_phone}}" class="form-control" id="supplier_phone"/>
+        </div>                    
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_address_1">
+                Address 1
+            </label>
+            <input type="text" name="supplier_address_1" value="{{supplier_address_1}}" class="form-control" id="supplier_address_1"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_address_2">
+                Address 2
+            </label>
+            <input type="text" name="supplier_address_2" value="{{supplier_address_2}}" class="form-control" id="supplier_address_2"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_postcode">
+                Post code
+            </label>
+            <input type="text" name="supplier_postcode" value="{{supplier_postcode}}" class="form-control" id="supplier_postcode"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_city">
+                City
+            </label>
+            <input type="text" name="supplier_city" value="{{supplier_city}}" class="form-control" id="supplier_city"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_country">
+                Country
+            </label>
+            <input type="text" name="supplier_country" value="{{supplier_country}}" class="form-control" id="supplier_country"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_bank">
+                Bank
+            </label>
+            <input type="text" name="supplier_bank" value="{{supplier_bank}}" class="form-control" id="supplier_bank"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="supplier_iban">
+                IBAN
+            </label>
+            <input type="text" name="supplier_iban" value="{{supplier_iban}}" class="form-control" id="supplier_iban"/>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Customer information</h4>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_name">
+                Company / Name
+            </label>
+            <input type="text" name="customer_name" value="{{customer_name}}" class="form-control" id="customer_name"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_misc">
+                Miscellaneous
+            </label>
+            <input type="text" name="customer_misc" value="{{customer_misc}}" class="form-control" id="customer_misc"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_rc_no">
+                R.C. No.
+            </label>
+            <input type="text" name="customer_rc_no" value="{{customer_rc_no}}" class="form-control" id="customer_rc_no"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_vat_no">
+                V.A.T. No.
+            </label>
+            <input type="text" name="customer_vat_no" value="{{customer_vat_no}}" class="form-control" id="customer_vat_no"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_phone">
+                Phone
+            </label>
+            <input type="text" name="customer_phone" value="{{customer_phone}}" class="form-control" id="customer_phone"/>
+        </div>                    
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_address_1">
+                Address 1
+            </label>
+            <input type="text" name="customer_address_1" value="{{customer_address_1}}" class="form-control" id="customer_address_1"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_address_2">
+                Address 2
+            </label>
+            <input type="text" name="customer_address_2" value="{{customer_address_2}}" class="form-control" id="customer_address_2"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_postcode">
+                Post code
+            </label>
+            <input type="text" name="customer_postcode" value="{{customer_postcode}}" class="form-control" id="customer_postcode"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_city">
+                City
+            </label>
+            <input type="text" name="customer_city" value="{{customer_city}}" class="form-control" id="customer_city"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_country">
+                Country
+            </label>
+            <input type="text" name="customer_country" value="{{customer_country}}" class="form-control" id="customer_country"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_bank">
+                Bank
+            </label>
+            <input type="text" name="customer_bank" value="{{customer_bank}}" class="form-control" id="customer_bank"/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-addon" for="customer_iban">
+                IBAN
+            </label>
+            <input type="text" name="customer_iban" value="{{customer_iban}}" class="form-control" id="customer_iban"/>
+        </div>                    
+    </div>
+</div>

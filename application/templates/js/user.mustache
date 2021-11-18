@@ -1,0 +1,9 @@
+<script type="text/mustache-template" id="notifications-template">
+    {{#notifications}}
+                <li class="{{status}}" data-id="{{id}}" id="notification-{{id}}">
+                    <span class="info pull-left">{{{info}}}</span>
+                    <span class="date pull-right">{{date}}</span>
+                    <span class="clearfix"></span>
+                </li>
+    {{/notifications}}
+</script>

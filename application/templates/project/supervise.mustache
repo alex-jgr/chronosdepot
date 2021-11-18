@@ -1,0 +1,225 @@
+<div id="operate-panels">
+    <h3>
+        {{#project}}{{name}}{{/project}}
+    </h3>
+    <div class="clearfix"></div>
+    <br />
+    <div>
+        {{#totals}}
+        <div class="row" id="project-totals">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="input-group">
+                    <label class="input-group-addon">
+                        Estimated work: 
+                    </label>
+                    <input class="form-control" readonly type="text" id="total-estimated-work" value="{{total_estimate}}"/>
+                </div>
+                <br />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="input-group">
+                    <label class="input-group-addon">
+                        Done work:
+                    </label>
+                    <input class="form-control" readonly type="text" id="total-project-work" value="{{total_work}}" />
+                </div>
+                <br />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="input-group">
+                    <label class="input-group-addon">
+                        Value:
+                    </label>
+                    <input class="form-control" readonly type="text" id="total-project-spendings" value="{{total_spendings}}" />
+                    <label class="input-group-addon">
+                        {{currency}}
+                    </label>
+                </div>
+                <br />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a class="btn btn-default pull-right" href="/worklogs/supervise/{{project_id}}">Go to worklogs</a>
+                <br />
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+        <h4>Overall project progress</h4>
+        <div class="progress" id="parent-progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{project_progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{project_progress}}%" >
+                {{project_progress}}%
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+        {{/totals}}
+        <form method="post" action="/worklogs/excel/{{#project}}{{id}}{{/project}}">
+            <input type="hidden" name="start_date" value="all" />
+            <button class="btn btn-default">Get spreadsheet</button>
+        </form>
+        <div class="clearfix"></div>
+        <br /> <br />
+        <div class="task-item hidden-xs hidden-sm">
+            <span class="pull-left col-md-6"><i></i> <label>Tasks</label></span>
+            <span class="col-md-4">
+                <span class="time-status col-md-6"><span>Work/ Estimate</span></span>
+                <span class="col-md-6"><span>Spent/ Budget</span></span>
+            </span>
+            <span class="pull-right col-md-2">Options</span>
+            <div class="clearfix"></div>
+        </div>
+        <div id="project-tasks">
+            {{#tasks}}
+            <div class="task-item {{status}} {{#parent_id}}child-of-{{parent_id}}{{/parent_id}}" id="task-{{id}}" data-id="{{id}}" data-status="{{status}}" data-progress="{{progress}}" data-parent="{{parent_id}}">
+                <div class="visible-xs col-xs-12"><br /></div>
+                <span class="pull-left col-sm-6 col-xs-12">
+                    <span class="level level-{{level}}"></span>
+                    <i class="glyphicon glyphicon-tasks"></i> 
+                    <span class="collapse-control">
+                        {{#has_children}}
+                            <button class="btn btn-default pull-left expand-collapse" data-id="{{id}}" data-project_id="{{project_id}}" data-parent="{{parent_id}}">
+                                <i class="glyphicon glyphicon-chevron-right visible"></i>
+                                <i class="glyphicon hidden">!</i>
+                                <i class="loading"></i>
+                            </button>
+                        {{/has_children}}
+                    </span>
+                    {{goal}} (<span id="task-progress-{{id}}">{{progress}}</span>%)
+                </span>
+
+                <span class="col-sm-4 col-xs-12">
+                    <span class="time-status col-sm-6 col-xs-12">
+                        <span class="level level-1 visible-xs"></span>{{duration}}/ {{estimate}}
+                    </span>
+                    <span class="col-sm-6 col-xs-12">
+                        <span class="level level-1 visible-xs"></span>{{spent}}/ {{budget}}
+                    </span>
+                </span>
+                <span class="pull-right col-sm-2 col-xs-12 buttons-group">
+                    <span class="level level-1 visible-xs"></span>
+                    <span class="level level-{{level}} visible-xs"></span>
+                    <button class="btn btn-default edit-task" 
+                            data-id="{{id}}" 
+                            data-task_type_id="{{task_type_id}}" 
+                            data-goal="{{goal}}" 
+                            data-estimate_hours="{{estimate_hours}}" 
+                            data-estimate_minutes="{{estimate_minutes}}" 
+                            data-budget="{{budget}}"
+                            data-description="{{description}}"
+                            data-status="{{status}}"
+                            data-project_id="{{project_id}}"
+                            data-parent_id="{{parent_id}}"
+                            type="button" data-toggle="modal" data-target=".view-task" title="View task details">
+                        <i class="glyphicon glyphicon-file"></i>
+                    </button>
+                    <button class="btn btn-default users" id="users-{{id}}" data-id="{{id}}" type="button" data-toggle="modal" data-target=".view-users" data-goal="{{goal}}"><i class="glyphicon glyphicon-user"></i></button>
+                    <span class="visible-xs col-xs-12"><br /></span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+            {{/tasks}}
+        </div>
+    </div>
+</div>
+<div id="modals-container">
+    <div class="modal fade view-task" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Task details
+                    </div>
+                    <div class="panel-body">
+                        <input type="hidden" id="task-id" />
+                        <input type="hidden" id="parent-id" />
+                        <input type="hidden" id="project-id" value="{{project_id}}" />
+                        <input type="hidden" id="grandparent-id" />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="goal">Task</label>
+                            <input class="form-control" type="text" disabled="disabled" name="goal" id="goal"/>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-7 col-xs-12">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="estimate-hours">Estimate</label>
+                                    <input class="form-control" disabled="disabled" type="text" id="estimate-hours" name="estimate_hours" placeholder="hh" />
+                                    <label class="input-group-addon" for="estimate-minutes"> : </label>
+                                    <input class="form-control" disabled="disabled" type="text" id="estimate-minutes" name="estimate_minutes" placeholder="mm" />
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                            </div>
+                            <div class="col-sm-5 col-xs-12">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="budget">Budget</label>
+                                    <input class="form-control" disabled="disabled" type="text" id="budget" name="budget" />
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                            </div>
+                        </div>
+
+                        <label class="control-label" for="description">Task description</label>
+                        <textarea name="description" disabled="disabled" class="form-control col-sm-12" id="description" rows="10"></textarea>
+                        <div class="clearfix"></div>
+
+                        <br />
+
+                        <div class="form-inline row">
+                            <div class="col-sm-8 col-xs-12">
+                                <div class="input-group">
+                                    <label class="input-group-addon">
+                                        Task status :
+                                    </label>
+                                    <input class="form-control" disabled="disabled" name="status" id="status" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-warning form-control" id="cancel" type="button" data-toggle="modal" data-target=".view-task">Close</button>
+                                <div class="clearfix col-xs-12"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade view-users" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="manage-users-message">
+                        Assigned users for task #<label id="assign-users-task-id"></label>: 
+                        "<label id="assign-users-task-name"></label>" to users
+                    </div>
+                    <div class="panel-body">
+                        <div class="row panel-group">
+                            <div class="col-sm-12">
+                                <div class="lbjs">
+                                    <div class="lbjs-list task-types-list" id="listbox-assigned-users-list">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="btn-group col-xs-12">
+                                <button class="btn btn-default col-xs-12" type="button" data-toggle="modal" data-target=".view-users">Close</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

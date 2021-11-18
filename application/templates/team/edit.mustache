@@ -1,0 +1,71 @@
+<div class="col-md-12">
+    <h3>
+        {{#id}}Edit team: {{name}}{{/id}}{{^id}}Create team:{{/id}}
+    </h3>
+    <div class="clearfix"></div>
+    <br /><br />
+    <form class="form-horizontal" id="edit-team" action="/team/save/{{id}}" method="post" enctype="multipart/form-data">
+        <div>
+            <div >
+                <div class="row">
+                    <div class="col-md-7 col-xs-12">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="name"><i class="glyphicon glyphicon-eye-open"></i> Team name</label>
+                            <input class="form-control" id="name" type="text" name="name" value="{{name}}"/>
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <label class="input-group-addon" for="description"><i class="glyphicon glyphicon-eye-open"></i> Description</label>
+                            <textarea class="form-control" rows="19" id="description" name="description">{{description}}</textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br />
+                        {{#id}}
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="input-group">
+                                        <label class="input-group-addon"><i class="glyphicon glyphicon-edit"></i><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-user"></i></label>
+                                        <a class="form-control btn btn-primary" href="/team/manage/{{id}}">Manage team members</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/id}}
+                    </div>
+                    <div class="col-md-5 col-xs-12">
+                        <center>
+                            <div class="team-image" id="image-preview">{{#image}}<img class="thumbnail" src="{{public_path}}" alt />{{/image}}</div>
+                        </center>
+                        <input type="hidden" name="image_id" value="{{image_id}}" id="image_id"/>
+                        <div class="input-group">
+                            <label class="input-group-addon">Image</label>
+                            <button class="btn btn-info form-control divert" type="button" data-divert="#image" data-event="click">Browse ... </button>
+                            <label class="input-group-addon" id="upload-status"></label>
+                            <button class="btn btn-default form-control disabled" type="button" id="start-upload"><i class="glyphicon glyphicon-upload"></i> Upload</button>
+                        </div>
+                        <input class="form-control hidden" type="file" name="image" id="image"/>
+                        <br />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <button class="btn btn-primary col-md-12 col-xs-12" type="submit">Save</button>
+                        <div class="clearfix"></div>
+                        <br />
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a class="btn btn-warning col-md-12 col-xs-12" href="/user/home/owned-teams">Cancel</a>
+                        <div class="clearfix"></div>
+                        <br />
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a class="btn btn-danger col-md-12 col-xs-12" href="/team/remove/{{id}}">Delete...</a>
+                        <div class="clearfix"></div>
+                        <br />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,138 @@
+   
+<h3>Task Types and Positions <br /><br /></h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Select a Position
+                    </div>
+                    <div class="panel-body">
+                        <p>Available positions:</p>
+                        <div class="lbjs">
+                            <div class="lbjs-list positions-list" id="listbox-positions-list">
+                                {{#positions}}
+                                    <div class="lbjs-item item-{{id}}" data-value="{{id}}">{{name}}</div>
+                                {{/positions}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Select the Task Types for the selected position
+                    </div>
+                    <div class="panel-body">
+                        <p>Available Task Types:</p>
+                        <div class="lbjs">
+                            <div class="lbjs-list task-types-list" id="listbox-task-types-list">
+                                {{#task_types}}
+                                    <div class="lbjs-item item-{{id}}" data-value="{{id}}">{{name}}</div>
+                                {{/task_types}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <center>
+                <button class="btn btn-success" id="save-changes">Save changes</button>
+            </center>
+            <div class="clearfix"></div> <br />
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Edit / Create POSITION
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body col-md-12">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="position-description">Select position</label>
+                            <select class="form-control" id="select-edit-position">
+                                <option value="0">Create new position...</option>
+                                {{#positions}}
+                                <option value="{{id}}">{{name}}</option>
+                                {{/positions}}
+                            </select>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="position-id">ID</label>
+                                    <input type="text" class="form-control identifier" readonly id="position-id" />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="position-name">Name</label>
+                                    <input type="text" class="form-control" name="name" id="position-name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="clearfix"></div>
+                        <div class="input-group">
+                            <label class="input-group-addon" for="position-description">Description</label>
+                            <input type="text" class="form-control" name="name" id="position-description"/>
+                        </div>
+                         <br />
+                        <div class="clearfix"></div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default" id="save-position">Save</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Edit / Create TASK TYPE
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body col-md-12">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="task-type-description">Select task type</label>
+                            <select class="form-control" id="select-edit-task-type">
+                                <option value="0">Create new task type...</option>
+                                {{#task_types}}
+                                <option value="{{id}}">{{name}}</option>
+                                {{/task_types}}
+                            </select>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="task-type-id">ID</label>
+                                    <input type="text" class="form-control identifier" readonly id="task-type-id"/>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="task-type-name">Name</label>
+                                    <input type="text" class="form-control" name="name" id="task-type-name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="clearfix"></div>
+                        <div class="input-group">
+                            <label class="input-group-addon" for="task-type-description">Description</label>
+                            <input type="text" class="form-control" name="name" id="task-type-description"/>
+                        </div>
+                         <br />
+                        <div class="clearfix"></div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default" id="save-task-type">Save</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
