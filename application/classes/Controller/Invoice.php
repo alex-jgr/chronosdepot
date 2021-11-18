@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 /**
- * Description of Test
+ * Description of Controller_Invoice
  *
  * @author Alex
  */
