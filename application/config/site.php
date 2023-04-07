@@ -1,1 +1,4 @@
-<?phpreturn array(    'layout' => 'layout_responsive');
+<?php
+return array(
+    'layout' => 'layout_responsive'
+);
